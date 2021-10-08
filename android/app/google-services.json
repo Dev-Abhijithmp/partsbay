@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "341307342130",
+    "project_id": "partsbay-c7131",
+    "storage_bucket": "partsbay-c7131.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341307342130:android:cbc973ff6e4365e41aeb2b",
+        "android_client_info": {
+          "package_name": "com.example.partsbay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341307342130-tocs5ieqj5ihdb5qn2l0e6vs8fd5b5db.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLCUqdcDaiOyIAYdxirvbgprpSFxNEXzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341307342130-tocs5ieqj5ihdb5qn2l0e6vs8fd5b5db.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

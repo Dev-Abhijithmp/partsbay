@@ -1,20 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:partsbay/loginscreen/login.dart';
+// Import the firebase_core plugin
+import 'package:firebase_core/firebase_core.dart';
+import 'package:partsbay/authentication/siginoutstates.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+/// We are using a StatefulWidget such that we only create the [Future] once,
+/// no matter how many times our widget rebuild.
+/// If we used a [StatelessWidget], in the event where [App] is rebuilt, that
+/// would re-initialize FlutterFire and make our application re-enter loading state,
+/// which is undesired.
+class App extends StatefulWidget {
+  // Create the initialization Future outside of `build`:
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  /// The future is part of the state of our widget. We should not call `initializeApp`
+  /// directly inside [build].
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.cyan,
+      home: FutureBuilder(
+        // Initialize FlutterFire:
+        future: _initialization,
+        builder: (context, snapshot) {
+          // Check for errors
+          if (snapshot.hasError) {
+            return sOmethingWentWrong();
+          }
+
+          // Once complete, show your application
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Signinout();
+          }
+
+          // Otherwise, show something whilst waiting for initialization to complete
+          return loading();
+        },
       ),
-      home: Loginscreen(),
     );
   }
+}
+
+Widget sOmethingWentWrong() {
+  return Scaffold(
+    body: Container(
+      child: Center(
+        child: Text("Somethong went wrong"),
+      ),
+    ),
+  );
+}
+
+Widget loading() {
+  return Scaffold(
+    body: Container(
+      child: Center(
+        child: Text("Loading...."),
+      ),
+    ),
+  );
 }

@@ -30,6 +30,15 @@ dependencies:
   cupertino_icons: ^1.0.2
   code_fields: ^0.0.4
   flutter_svg: ^0.22.0
+  carousel_slider: ^4.0.0
+  dependencies:
+  google_fonts: ^2.1.0 
+  flutter_swiper_tv: ^1.1.6-nullsafety
+  flutter_zoom_drawer: ^2.1.1
+  geolocator: ^7.6.2
+  firebase_core: ^1.7.0
+  firebase_auth: ^3.1.2
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -44,19 +53,21 @@ flutter:
     - family:  MyFlutterApp
       fonts:
        - asset: icons/MyFlutterApp.ttf
+    - family: Myicons
+      fonts:
+       - asset: icons/Myicons.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
   assets:
-     - images/b.jpg
-     - images/b1.jpg
-     - images/b2.jpg
-     - icons/glogo.svg
-     - images/bb.jpg
-     - images/bb1.jpg
      - icons/flogo.svg
+     - images/duke390.jpeg
+     - images/g310.jpeg
+     - images/himalayan.jpeg
+     - images/ninja.jpeg
+     - images/abhi.jpeg
     
 
   # To add assets to your application, add an assets section, like this:
