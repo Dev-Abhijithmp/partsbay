@@ -287,44 +287,38 @@ Widget _shopbybikes() {
 }
 
 Widget _categories() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      SizedBox(
-        width: 100,
-        height: 40,
-        child: Card(
-            color: Colors.amber.shade50,
-            child: Center(
-              child: Text(
-                'Parts',
-              ),
-            )),
-      ),
-      SizedBox(
-        width: 100,
-        height: 40,
-        child: Card(
-          color: Colors.amber.shade50,
-          child: Center(
-            child: Text(
-              "Helmet",
+  return Container(
+    width: double.infinity,
+    child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: Card(
+              child: Image.network(
+                  "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png"),
             ),
           ),
-        ),
-      ),
-      SizedBox(
-        width: 100,
-        height: 40,
-        child: Card(
-          color: Colors.amber.shade50,
-          child: Center(
-            child: Text(
-              "Gears",
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: Card(
+              child: Image.network(
+                  "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png"),
             ),
           ),
-        ),
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: Card(
+              child: Image.network(
+                  "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png"),
+            ),
+          ),
+        ],
       ),
-    ],
+    ),
   );
 }

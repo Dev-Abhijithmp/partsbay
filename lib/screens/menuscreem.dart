@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/authentication/authenticate.dart';
+import 'package:partsbay/inner_screen/viewpage.dart';
 import 'package:partsbay/myicons_icons.dart';
-import 'package:partsbay/screens/itempage.dart';
 
 class MenuScreen extends StatefulWidget {
   MenuScreen({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class _MenuScreenState extends State<MenuScreen> {
             TextButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Itempage();
+                  return Viewpage();
                 }));
               },
               child: Text(
