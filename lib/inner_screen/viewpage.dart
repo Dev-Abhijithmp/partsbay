@@ -1,7 +1,11 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:partsbay/fetchdata/classes.dart';
 
 class Viewpage extends StatefulWidget {
-  Viewpage({Key? key}) : super(key: key);
+  late List<Items> products;
+  Viewpage(List<Items> products, {Key? key}) : super(key: key);
 
   @override
   _ViewpageState createState() => _ViewpageState();
@@ -21,9 +25,10 @@ class _ViewpageState extends State<Viewpage> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (BuildContext context, index) {
-                  return singleItem();
+                  return singleItem(products[index].urls, products[index].title,
+                      products[index].price);
                 },
-                itemCount: 10,
+                itemCount: products.length,
               ),
             ),
           ],
@@ -65,23 +70,33 @@ Widget viewAppbar(context) {
   );
 }
 
-Widget singleItem() {
+Widget singleItem(List<String> url, String title, double price) {
   return Card(
-    margin: EdgeInsets.all(5),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Image.asset("images/himalayan.jpeg"),
-        Text(
-          "Title",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-        Text(
-          "Price",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-      ],
+    child: Container(
+      height: 220,
+      width: 100,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 100,
+            height: 150,
+            child: Image.network(
+              url[0],
+              fit: BoxFit.cover,
+            ),
+          ),
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+          ),
+          Text(
+            "$price",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+          ),
+        ],
+      ),
     ),
   );
 }
