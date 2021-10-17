@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
 import 'package:partsbay/screens/searchpage.dart';
@@ -90,7 +91,7 @@ class _HomepageState extends State<Homepage> {
                   SizedBox(
                     height: 20,
                   ),
-                  _categories(),
+                  _categories(context),
                   SizedBox(
                     height: 20,
                   ),
@@ -162,13 +163,13 @@ Widget _appbar(context, double latitude, double logtitude) {
         Color.fromRGBO(80, 167, 194, 1),
         Color.fromRGBO(183, 248, 219, 1)
       ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-      /*boxShadow: [
+      boxShadow: [
         BoxShadow(
             blurRadius: 1,
             spreadRadius: 1,
             color: Colors.black54,
             offset: Offset(0, 1))
-      ],*/
+      ],
     ),
     child: Column(
       children: [
@@ -286,35 +287,128 @@ Widget _shopbybikes() {
   );
 }
 
-Widget _categories() {
+Widget _categories(context) {
   return Container(
     width: double.infinity,
     child: SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(
-              child: Image.network(
-                  "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Catadata(
+                  docdata: "jackets",
+                );
+              }));
+            },
+            child: SizedBox(
+              width: 110,
+              height: 150,
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 70,
+                      child: Image.network(
+                          "https://5.imimg.com/data5/TR/XS/MY-3513908/htb1zf4egfxxxxxxxpxxq6xxfxxxq-1000x1000.jpg"),
+                    ),
+                    Text(
+                      "Jackets",
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(
-              child: Image.network(
-                  "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Catadata(
+                  docdata: "helmets",
+                );
+              }));
+            },
+            child: SizedBox(
+              width: 110,
+              height: 150,
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 70,
+                      child: Image.network(
+                          "https://motogearperformance.com/wp-content/uploads/2021/03/DAINESE21AGV.00004PZ_SN006119_CLOSEUP02_large.png"),
+                    ),
+                    Text(
+                      "Helmets",
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(
-              child: Image.network(
-                  "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Catadata(
+                  docdata: "Gloves",
+                );
+              }));
+            },
+            child: SizedBox(
+              width: 110,
+              height: 150,
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 70,
+                      child: Image.network(
+                          "https://images-eu.ssl-images-amazon.com/images/I/51H8sdJdXBL._SX300_SY300_QL70_FMwebp_.jpg"),
+                    ),
+                    Text(
+                      "Helmets",
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Catadata(
+                  docdata: "boots",
+                );
+              }));
+            },
+            child: SizedBox(
+              width: 110,
+              height: 150,
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 70,
+                      child: Image.network(
+                          "https://m.media-amazon.com/images/I/812HUl6A1YL._SL1500_.jpg"),
+                    ),
+                    Text(
+                      "Boots",
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ],

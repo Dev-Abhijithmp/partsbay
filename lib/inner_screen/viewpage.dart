@@ -1,19 +1,15 @@
-// ignore_for_file: must_be_immutable
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:partsbay/fetchdata/classes.dart';
+import 'package:partsbay/inner_screen/itempage.dart';
 
-class Viewpage extends StatefulWidget {
-  late List<Items> products;
-  Viewpage(List<Items> products, {Key? key}) : super(key: key);
+class Viewpage extends StatelessWidget {
+  final List<DocumentSnapshot> data;
 
-  @override
-  _ViewpageState createState() => _ViewpageState();
-}
+  Viewpage({Key? key, required this.data}) : super(key: key);
 
-class _ViewpageState extends State<Viewpage> {
   @override
   Widget build(BuildContext context) {
+    print(data.length);
     return Scaffold(
       body: Container(
         child: Column(
@@ -23,12 +19,22 @@ class _ViewpageState extends State<Viewpage> {
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
+                    childAspectRatio: 0.7, crossAxisCount: 2),
                 itemBuilder: (BuildContext context, index) {
-                  return singleItem(products[index].urls, products[index].title,
-                      products[index].price);
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Itempage(data: data[index]);
+                      }));
+                    },
+                    child: singleItem(
+                        data[index].get('urls'),
+                        data[index].get('title'),
+                        data[index].get('price').toDouble()),
+                  );
                 },
-                itemCount: products.length,
+                itemCount: data.length,
               ),
             ),
           ],
@@ -70,21 +76,21 @@ Widget viewAppbar(context) {
   );
 }
 
-Widget singleItem(List<String> url, String title, double price) {
+Widget singleItem(List<dynamic> url, String title, double price) {
   return Card(
     child: Container(
-      height: 220,
-      width: 100,
+      height: 300,
+      width: 160,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 100,
-            height: 150,
+            height: 200,
+            width: 160,
             child: Image.network(
-              url[0],
-              fit: BoxFit.cover,
+              url[0].toString(),
+              fit: BoxFit.fill,
             ),
           ),
           Text(

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/authentication/authenticate.dart';
-import 'package:partsbay/fetchdata/classes.dart';
-import 'package:partsbay/inner_screen/viewpage.dart';
+
 import 'package:partsbay/myicons_icons.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -44,99 +43,52 @@ class _MenuScreenState extends State<MenuScreen> {
               height: 20,
             ),
             TextButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Viewpage(
-                    [
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ]),
-                      Items("", "", "", "", 20, 20, [], [
-                        "https://www.pngfind.com/pngs/m/375-3753305_clip-transparent-library-car-jeep-tire-motor-vehicle.png",
-                      ])
-                    ],
-                  );
-                }));
-              },
+              onPressed: () {},
               child: Text(
                 "profile",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(242, 50, 134, 1),
+                ),
               ),
             ),
             SizedBox(
               height: 20,
             ),
             Text("purchase history",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(242, 50, 134, 1),
+                )),
             SizedBox(
               height: 30,
             ),
             Text("Settings",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(242, 50, 134, 1),
+                )),
             SizedBox(
               height: 30,
             ),
             Text("Invite Friends",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(242, 50, 134, 1),
+                )),
             SizedBox(
               height: 30,
             ),
             Text("Switch Account",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(242, 50, 134, 1),
+                )),
             SizedBox(
               height: 30,
             ),
@@ -151,9 +103,16 @@ class _MenuScreenState extends State<MenuScreen> {
               onPressed: () {
                 signout();
               },
-              icon: Icon(Myicons.logout),
+              icon: Icon(
+                Myicons.logout,
+                color: Color.fromRGBO(242, 50, 134, 1),
+              ),
               label: Text("Logout",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(242, 50, 134, 1),
+                  )),
             )
           ],
         ),

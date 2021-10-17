@@ -1,78 +1,96 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
 
 class Itempage extends StatefulWidget {
-  const Itempage({Key? key}) : super(key: key);
+  final DocumentSnapshot data;
+  const Itempage({Key? key, required this.data}) : super(key: key);
 
   @override
-  _ItempageState createState() => _ItempageState();
+  _ItempageState createState() => _ItempageState(data);
 }
 
 class _ItempageState extends State<Itempage> {
+  final DocumentSnapshot data;
+
+  _ItempageState(this.data);
   @override
   Widget build(BuildContext context) {
-    List<String> img = [
-      'images/duke390.jpeg',
-      'images/g310.jpeg',
-      'images/himalayan.jpeg',
-      'images/ninja.jpeg'
-    ];
+    List<dynamic> links = data.get('urls');
     return Scaffold(
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             itemAppbar(context),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 200,
-                    child: Swiper(
-                      fade: 1,
-                      autoplay: false,
-                      itemCount: img.length,
-                      controller: SwiperController(),
-                      pagination: SwiperPagination(
-                        builder: SwiperPagination.dots,
-                        alignment: Alignment.bottomCenter,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          child: Image.asset(
-                            img[index],
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 20,
+                      Container(
+                        height: 400,
+                        child: Swiper(
+                          fade: 1,
+                          autoplay: false,
+                          itemCount: links.length,
+                          controller: SwiperController(),
+                          pagination: SwiperPagination(
+                            builder: SwiperPagination.dots,
+                            alignment: Alignment.bottomCenter,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Card(
+                              child: Image.network(
+                                links[index],
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 20,
+                      Text(data.get('title')),
+                      SizedBox(
+                        height: 5,
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 20,
+                      Text(data.get('description')),
+                      SizedBox(
+                        height: 5,
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 20,
+                      Text(data.get('price').toString()),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.red,
+                            radius: 20,
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.red,
+                            radius: 20,
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.red,
+                            radius: 20,
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.red,
+                            radius: 20,
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 500,
+                        color: Colors.yellow,
                       )
                     ],
                   ),
-                ],
+                ),
               ),
             ),
-            Spacer(),
             Container(
               width: double.infinity,
               height: 70,
