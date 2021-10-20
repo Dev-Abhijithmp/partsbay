@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:partsbay/colorsandfonts.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
@@ -157,12 +158,9 @@ class _HomepageState extends State<Homepage> {
 Widget _appbar(context, double latitude, double logtitude) {
   return Container(
     width: double.infinity,
-    height: 115,
+    height: 120,
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [
-        Color.fromRGBO(80, 167, 194, 1),
-        Color.fromRGBO(183, 248, 219, 1)
-      ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+      color: Color.fromRGBO(28, 6, 59, 1),
       boxShadow: [
         BoxShadow(
             blurRadius: 1,
@@ -172,9 +170,10 @@ Widget _appbar(context, double latitude, double logtitude) {
       ],
     ),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SizedBox(
-          height: 10,
+          height: 7,
         ),
         Row(
           children: [
@@ -182,24 +181,24 @@ Widget _appbar(context, double latitude, double logtitude) {
                 onPressed: () {},
                 icon: Icon(
                   Icons.location_on,
-                  color: Color.fromRGBO(223, 61, 126, 1),
+                  color: pink,
                 ),
                 label: Text(
                   "$latitude,$logtitude",
                   style: TextStyle(
-                    color: Color.fromRGBO(223, 61, 126, 1),
+                    color: pink,
                   ),
                 )),
             Spacer(),
-            Text(
-              "Partsbay",
-              style: TextStyle(
-                fontSize: 30,
-                color: Color.fromRGBO(1, 42, 74, 1),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              height: 50,
+              width: 130,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: DecorationImage(
+                    image: AssetImage("icons/plogo.jpeg"), fit: BoxFit.fill),
               ),
-            ),
-            SizedBox(
-              width: 10,
             ),
           ],
         ),
@@ -228,17 +227,22 @@ Widget _appbar(context, double latitude, double logtitude) {
                 child: Row(
                   children: [
                     Icon(Icons.search),
-                    Text("Search spares,helmets,gears here..")
+                    Expanded(child: Text("Search spares,helmets,gears here.."))
                   ],
                 ),
               ),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.notifications),
+              color: pink,
+            ),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Myicons.heart_empty,
                   size: 20,
+                  color: Color.fromRGBO(223, 61, 126, 1),
                 ))
           ],
         )
@@ -342,7 +346,9 @@ Widget _categories(context) {
                     Container(
                       height: 70,
                       child: Image.network(
-                          "https://motogearperformance.com/wp-content/uploads/2021/03/DAINESE21AGV.00004PZ_SN006119_CLOSEUP02_large.png"),
+                        "https://images.unsplash.com/photo-1603799091901-f0034ac3e7fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     Text(
                       "Helmets",
@@ -357,7 +363,7 @@ Widget _categories(context) {
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return Catadata(
-                  docdata: "Gloves",
+                  docdata: "gloves",
                 );
               }));
             },
@@ -374,7 +380,7 @@ Widget _categories(context) {
                           "https://images-eu.ssl-images-amazon.com/images/I/51H8sdJdXBL._SX300_SY300_QL70_FMwebp_.jpg"),
                     ),
                     Text(
-                      "Helmets",
+                      "Gloves",
                       style: TextStyle(fontSize: 20),
                     )
                   ],

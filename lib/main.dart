@@ -63,7 +63,9 @@ Widget loading() {
   return Scaffold(
     body: Container(
       child: Center(
-        child: Text("Loading...."),
+        child: CircularProgressIndicator(
+          color: Colors.blue,
+        ),
       ),
     ),
   );

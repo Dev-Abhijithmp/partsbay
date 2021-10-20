@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/colorsandfonts.dart';
 
 class Cartscreen extends StatefulWidget {
   const Cartscreen({Key? key}) : super(key: key);
@@ -56,96 +60,143 @@ Widget emptycart(context) {
 
 //the function non empty cart contain data of cart page that contain items
 Widget nonemptycart(context) {
-  return SafeArea(
-    child: Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color.fromRGBO(80, 167, 194, 1),
-            Color.fromRGBO(183, 248, 219, 1),
-            Colors.white,
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 30,
+  return Scaffold(
+    body: Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          viewAppbar(context),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, index) {
+                return singlecartitem(context);
+              },
+              itemCount: 1,
             ),
-            Card(
-              margin: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(
-                      "images/duke390.jpeg",
-                      fit: BoxFit.contain,
+          ),
+          Container(
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(offset: Offset(0, 0), spreadRadius: 1, blurRadius: 1),
+            ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Material(
+                  child: InkWell(
+                    onTap: () {},
+                    splashColor: Colors.blue,
+                    child: Container(
+                      child: Center(
+                        child: Text("checkout",
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      width: 150,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(28, 6, 59, 1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Name'),
-                      Text("price"),
-                      Text("Subtotal"),
-                      Row(
-                        children: [
-                          Text("Ships free"),
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.minimize_sharp)),
-                          Container(
-                            width: 20,
-                            height: 20,
-                            color: Colors.yellow.shade200,
-                          ),
-                          IconButton(onPressed: () {}, icon: Icon(Icons.add))
-                        ],
-                      )
-                    ],
-                  ),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  "Grand total = 200",
+                  style: TextStyle(),
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 56)
+        ],
+      ),
+    ),
+  );
+}
+
+Widget viewAppbar(context) {
+  return Container(
+      height: 100,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: blue,
+        boxShadow: [
+          BoxShadow(
+              blurRadius: 1,
+              spreadRadius: 1,
+              color: Colors.black54,
+              offset: Offset(0, 1))
+        ],
+      ),
+      child: Center(
+        child: Text(
+          "My Cart",
+          style: GoogleFonts.lato(
+              fontSize: 30, color: pink, fontWeight: FontWeight.bold),
+        ),
+      ));
+}
+
+Widget singlecartitem(context) {
+  return Card(
+    margin: EdgeInsets.all(10),
+    child: Container(
+      decoration:
+          BoxDecoration(border: Border.all(color: Colors.grey, width: 1)),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                child: Image.asset(
+                  "images/duke390.jpeg",
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Name'),
+                  Text("Description"),
+                  Text("price"),
                 ],
               ),
-            ),
-            Spacer(),
-            Container(
-              width: double.infinity,
-              height: 50,
-              decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(offset: Offset(0, 0), spreadRadius: 1, blurRadius: 1),
-              ]),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Text(
-                      "checkout",
-                      textAlign: TextAlign.center,
-                    ),
-                    width: 150,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1)),
+                  child: Center(
+                    child: Text("add to wishlist"),
                   ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    "Grand total = 200",
-                    style: TextStyle(),
-                  )
-                ],
+                ),
               ),
-            )
-          ],
-        ),
+              Expanded(
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1)),
+                  child: Center(
+                    child: Text("Remove"),
+                  ),
+                ),
+              )
+            ],
+          )
+        ],
       ),
     ),
   );

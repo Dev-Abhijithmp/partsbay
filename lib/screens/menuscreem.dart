@@ -22,10 +22,8 @@ class _MenuScreenState extends State<MenuScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(80, 167, 194, 1),
-              Color.fromRGBO(183, 248, 219, 1),
+              Color.fromRGBO(28, 6, 59, 1),
               Colors.white,
-              Colors.white
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

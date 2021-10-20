@@ -5,18 +5,9 @@ import 'package:partsbay/inner_screen/viewpage.dart';
 
 CollectionReference prod = FirebaseFirestore.instance.collection('products');
 
-class Catadata extends StatefulWidget {
+class Catadata extends StatelessWidget {
   final String docdata;
   Catadata({Key? key, required this.docdata}) : super(key: key);
-
-  @override
-  _CatadataState createState() => _CatadataState(docdata);
-}
-
-class _CatadataState extends State<Catadata> {
-  final String docdata;
-
-  _CatadataState(this.docdata);
 
   @override
   Widget build(BuildContext context) {
@@ -43,5 +34,15 @@ class _CatadataState extends State<Catadata> {
         return Scaffold(body: Text("loading"));
       },
     );
+  }
+}
+
+class Searchdata extends StatelessWidget {
+  final String str;
+  const Searchdata({Key? key, required this.str}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

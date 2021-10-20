@@ -22,7 +22,11 @@ class _SigninoutState extends State<Signinout> {
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(
                 child: Center(
-                  child: Text("Loading...."),
+                  child: CircularProgressIndicator(
+                    value: 2,
+                    semanticsLabel: "Loading...",
+                    color: Color.fromRGBO(242, 50, 134, 1),
+                  ),
                 ),
               );
             } else if (snapshot.hasData) {

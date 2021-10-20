@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/colorsandfonts.dart';
 import 'package:partsbay/inner_screen/itempage.dart';
 
 class Viewpage extends StatelessWidget {
@@ -46,22 +48,16 @@ class Viewpage extends StatelessWidget {
 
 Widget viewAppbar(context) {
   return Container(
-    height: 115,
+    height: 100,
     width: double.infinity,
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [
-          Color.fromRGBO(80, 167, 194, 1),
-          Color.fromRGBO(183, 248, 219, 1),
-        ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
+    color: blue,
     child: Row(
       children: [
         IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Color.fromRGBO(242, 50, 134, 1),
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -69,7 +65,16 @@ Widget viewAppbar(context) {
         SizedBox(
           width: 80,
         ),
-        Text("Partsbay"),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          height: 50,
+          width: 130,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            image: DecorationImage(
+                image: AssetImage("icons/plogo.jpeg"), fit: BoxFit.fill),
+          ),
+        ),
         Spacer()
       ],
     ),
@@ -77,10 +82,10 @@ Widget viewAppbar(context) {
 }
 
 Widget singleItem(List<dynamic> url, String title, double price) {
-  return Card(
-    child: Container(
-      height: 300,
-      width: 160,
+  return SizedBox(
+    height: 300,
+    width: 160,
+    child: Card(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,13 +98,21 @@ Widget singleItem(List<dynamic> url, String title, double price) {
               fit: BoxFit.fill,
             ),
           ),
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+          SizedBox(
+            height: 5,
           ),
           Text(
-            "$price",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+            title,
+            style: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            '₹' + "$price",
+            style: GoogleFonts.lato(
+              fontSize: 10,
+            ),
           ),
         ],
       ),
