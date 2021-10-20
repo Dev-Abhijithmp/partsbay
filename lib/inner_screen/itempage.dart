@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:partsbay/colorsandfonts.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/myicons_icons.dart';
 
 class Itempage extends StatefulWidget {
@@ -82,7 +82,7 @@ class _ItempageState extends State<Itempage> {
                           return Card(
                             child: Image.network(
                               links[index],
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           );
                         },
@@ -115,6 +115,8 @@ class _ItempageState extends State<Itempage> {
                       height: 50,
                       child: Center(
                         child: ListView.builder(
+                          physics: ScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics()),
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {

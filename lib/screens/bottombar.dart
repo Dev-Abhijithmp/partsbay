@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/myicons_icons.dart';
 import 'package:partsbay/screens/cart.dart';
 import 'package:partsbay/screens/homepage.dart';
 import 'package:partsbay/screens/offlinepage.dart';
 import 'package:partsbay/screens/orderscreen.dart';
 import 'package:partsbay/screens/menuscreem.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Bottompage extends StatefulWidget {
   Bottompage({Key? key}) : super(key: key);
@@ -32,9 +34,43 @@ class _BottompageState extends State<Bottompage> {
     }
 
     return Scaffold(
-      extendBody: true,
-      body: pages[selectedIndex],
-      bottomNavigationBar: BottomAppBar(
+        extendBody: true,
+        body: pages[selectedIndex],
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Colors.white,
+          color: blue,
+          height: 50,
+          items: [
+            Icon(
+              Icons.home,
+              color: pink,
+            ),
+            Icon(
+              Icons.gps_fixed_outlined,
+              size: 20,
+              color: pink,
+            ),
+            Icon(
+              Myicons.opencart,
+              color: pink,
+            ),
+            Icon(
+              Icons.offline_bolt,
+              color: pink,
+            ),
+            Icon(
+              Myicons.user_male,
+              size: 20,
+              color: pink,
+            ),
+          ],
+          onTap: (index) {
+            selectedstate(index);
+          },
+        ));
+  }
+}
+/*BottomAppBar(
         child: BottomNavigationBar(
           unselectedItemColor: Colors.black,
           selectedItemColor: Color.fromRGBO(223, 61, 126, 1),
@@ -70,7 +106,4 @@ class _BottompageState extends State<Bottompage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
+      ), */

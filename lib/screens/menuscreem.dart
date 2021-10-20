@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/authentication/authenticate.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 
 import 'package:partsbay/myicons_icons.dart';
+import 'package:partsbay/screens/cart.dart';
 
 class MenuScreen extends StatefulWidget {
   MenuScreen({Key? key}) : super(key: key);
@@ -18,102 +21,53 @@ class _MenuScreenState extends State<MenuScreen> {
       statusBarColor: Colors.transparent,
     ));
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(28, 6, 59, 1),
-              Colors.white,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          viewAppbar1(context, "Profile"),
+          sizedh(20),
+          profiletile("Name", "Abhijith"),
+          sizedh(10),
+          profiletile("Email", "111abhiabhi@gmail.com"),
+          sizedh(10),
+          profiletile("Phone", "9497747142"),
+          sizedh(30),
+          Divider(
+            height: 1,
+            color: Colors.black,
           ),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 20,
+          sizedh(30),
+          TextButton.icon(
+            onPressed: () {},
+            icon: Icon(
+              Icons.settings,
+              color: pink,
             ),
-            SizedBox(
-              height: 20,
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                "profile",
-                style: TextStyle(
+            label: Text("Settings",
+                style: GoogleFonts.lato(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(242, 50, 134, 1),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text("purchase history",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(242, 50, 134, 1),
+                  color: pink,
                 )),
-            SizedBox(
-              height: 30,
+          ),
+          sizedh(10),
+          TextButton.icon(
+            onPressed: () {
+              signout();
+            },
+            icon: Icon(
+              Myicons.logout,
+              color: pink,
             ),
-            Text("Settings",
-                style: TextStyle(
+            label: Text("Logout",
+                style: GoogleFonts.lato(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(242, 50, 134, 1),
+                  color: pink,
                 )),
-            SizedBox(
-              height: 30,
-            ),
-            Text("Invite Friends",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(242, 50, 134, 1),
-                )),
-            SizedBox(
-              height: 30,
-            ),
-            Text("Switch Account",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(242, 50, 134, 1),
-                )),
-            SizedBox(
-              height: 30,
-            ),
-            Divider(
-              height: 1,
-              color: Colors.black,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            TextButton.icon(
-              onPressed: () {
-                signout();
-              },
-              icon: Icon(
-                Myicons.logout,
-                color: Color.fromRGBO(242, 50, 134, 1),
-              ),
-              label: Text("Logout",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(242, 50, 134, 1),
-                  )),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

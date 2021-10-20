@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/authentication/forgot.dart';
 import 'package:partsbay/authentication/signuppage.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 
 class Loginpage extends StatefulWidget {
   Loginpage({Key? key}) : super(key: key);
@@ -24,7 +25,8 @@ class _LoginpageState extends State<Loginpage> {
     TextEditingController controllerPass = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(28, 6, 59, 1),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: blue,
       body: Container(
         child: Stack(
           children: [

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:partsbay/colorsandfonts.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/inner_screen/itempage.dart';
 
 class Viewpage extends StatelessWidget {
@@ -95,7 +95,6 @@ Widget singleItem(List<dynamic> url, String title, double price) {
             width: 160,
             child: Image.network(
               url[0].toString(),
-              fit: BoxFit.fill,
             ),
           ),
           SizedBox(

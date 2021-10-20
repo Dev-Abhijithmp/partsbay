@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:partsbay/colorsandfonts.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
@@ -51,9 +52,7 @@ class _HomepageState extends State<Homepage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 10,
-                  ),
+                  sizedh(10),
                   Container(
                     height: 200,
                     child: Swiper(
@@ -75,76 +74,30 @@ class _HomepageState extends State<Homepage> {
                       },
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  sizedh(20),
                   Row(
                     children: [
-                      SizedBox(
-                        width: 20,
-                      ),
+                      sizedw(20),
                       Text(
                         "Categories",
-                        style: TextStyle(fontSize: 20),
+                        style: GoogleFonts.lato(color: blue, fontSize: 20),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  sizedh(20),
                   _categories(context),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  sizedh(20),
                   Row(
                     children: [
-                      SizedBox(
-                        width: 20,
-                      ),
+                      sizedw(20),
                       Text(
-                        "Shop by Bikes",
-                        style: TextStyle(fontSize: 20),
+                        "Shop by bikes",
+                        style: GoogleFonts.lato(color: blue, fontSize: 20),
                       ),
                     ],
                   ),
                   _shopbybikes(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Card(
-                    margin: EdgeInsets.all(8),
-                    child: Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Swiper(
-                        fade: 1,
-                        autoplay: true,
-                        itemCount: img.length,
-                        controller: SwiperController(),
-                        pagination: SwiperPagination(
-                          builder: SwiperPagination.dots,
-                          alignment: Alignment.bottomCenter,
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Image.asset(
-                            img[index],
-                            fit: BoxFit.cover,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  )
+                  sizedh(60),
                 ],
               ),
             ),
@@ -160,7 +113,7 @@ Widget _appbar(context, double latitude, double logtitude) {
     width: double.infinity,
     height: 120,
     decoration: BoxDecoration(
-      color: Color.fromRGBO(28, 6, 59, 1),
+      color: blue,
       boxShadow: [
         BoxShadow(
             blurRadius: 1,
@@ -205,9 +158,7 @@ Widget _appbar(context, double latitude, double logtitude) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              width: 10,
-            ),
+            sizedw(10),
             GestureDetector(
               onTap: () {
                 Navigator.push(context,
@@ -227,7 +178,11 @@ Widget _appbar(context, double latitude, double logtitude) {
                 child: Row(
                   children: [
                     Icon(Icons.search),
-                    Expanded(child: Text("Search spares,helmets,gears here.."))
+                    Expanded(
+                        child: Text("Search spares,helmets,gears here..",
+                            style: GoogleFonts.lato(
+                              color: blue,
+                            ))),
                   ],
                 ),
               ),
@@ -242,7 +197,7 @@ Widget _appbar(context, double latitude, double logtitude) {
                 icon: Icon(
                   Myicons.heart_empty,
                   size: 20,
-                  color: Color.fromRGBO(223, 61, 126, 1),
+                  color: pink,
                 ))
           ],
         )
@@ -252,41 +207,48 @@ Widget _appbar(context, double latitude, double logtitude) {
 }
 
 Widget _shopbybikes() {
-  return Container(
+  List<String> img = [
+    "images/duke390.jpeg",
+    "images/g310.jpeg",
+    "images/himalayan.jpeg",
+    "images/ninja.jpeg",
+    "images/duke390.jpeg"
+  ];
+  return SizedBox(
+    height: 60 * (img.length * 2),
     width: double.infinity,
-    child: SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(child: Image.asset("images/duke390.jpeg")),
-          ),
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(child: Image.asset("images/g310.jpeg")),
-          ),
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(
-              child: Image.asset("images/himalayan.jpeg"),
+    child: GridView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      controller: ScrollController(keepScrollOffset: false),
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      itemBuilder: (BuildContext context, int index) {
+        return SizedBox(
+          height: 100,
+          width: 100,
+          child: Card(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  img[index],
+                  fit: BoxFit.contain,
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    "Bike",
+                    style: GoogleFonts.lato(color: blue, fontSize: 15),
+                  ),
+                )
+              ],
             ),
           ),
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(child: Image.asset("images/ninja.jpeg")),
-          ),
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(child: Image.asset("images/duke390.jpeg")),
-          ),
-        ],
-      ),
+        );
+      },
+      itemCount: img.length,
     ),
   );
 }
@@ -321,7 +283,7 @@ Widget _categories(context) {
                     ),
                     Text(
                       "Jackets",
-                      style: TextStyle(fontSize: 20),
+                      style: GoogleFonts.lato(color: blue, fontSize: 20),
                     )
                   ],
                 ),
@@ -352,7 +314,7 @@ Widget _categories(context) {
                     ),
                     Text(
                       "Helmets",
-                      style: TextStyle(fontSize: 20),
+                      style: GoogleFonts.lato(color: blue, fontSize: 20),
                     )
                   ],
                 ),
@@ -381,7 +343,7 @@ Widget _categories(context) {
                     ),
                     Text(
                       "Gloves",
-                      style: TextStyle(fontSize: 20),
+                      style: GoogleFonts.lato(color: blue, fontSize: 20),
                     )
                   ],
                 ),
@@ -410,7 +372,7 @@ Widget _categories(context) {
                     ),
                     Text(
                       "Boots",
-                      style: TextStyle(fontSize: 20),
+                      style: GoogleFonts.lato(color: blue, fontSize: 20),
                     )
                   ],
                 ),

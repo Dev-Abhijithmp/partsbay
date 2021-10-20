@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/authentication/loginpage.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/screens/bottombar.dart';
 
 class Signinout extends StatefulWidget {
@@ -14,6 +15,7 @@ class _SigninoutState extends State<Signinout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: blue,
       body: StreamBuilder(
           stream: changesign,
           builder: (context, snapshot) {
