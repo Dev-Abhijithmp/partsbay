@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
@@ -22,6 +23,7 @@ class _CartscreenState extends State<Cartscreen> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
+    print(data.length);
 
     if (data.length > 0) {
       return nonemptycart(context, data);
@@ -54,7 +56,11 @@ Widget emptycart(context) {
                 style: TextStyle(fontSize: 40),
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Contine Shopping"))
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Contine Shopping"))
           ],
         ),
       ),
@@ -75,28 +81,32 @@ Widget nonemptycart(context, List<DocumentSnapshot> data) {
             child: Column(
               children: [
                 SizedBox(
-                  height: 170 * data.length.toDouble(),
+                  height: 170 * (data.length).toDouble(),
                   width: double.infinity,
                   child: ListView.builder(
+                    shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, index) {
                       return singlecartitem(
-                          context,
-                          data[index].get('url'),
-                          data[index].get('title'),
-                          data[index].get('price'),
-                          data[index].get('description'),
-                          data[index].get('count'));
+                        context,
+                        data[index].get('url'),
+                        data[index].get('title'),
+                        data[index].get('price').toDouble(),
+                        data[index].get('description'),
+                        data[index].get('count'),
+                        data[index].get('size'),
+                        data[index].get('id'),
+                      );
                     },
-                    itemCount: 4,
+                    itemCount: data.length,
                   ),
                 ),
-                checkoutbutton()
               ],
             ),
           ),
         ),
-        sizedh(70)
+        checkoutbutton(),
+        sizedh(30)
       ],
     ),
   );

@@ -23,6 +23,21 @@ class _ItempageState extends State<Itempage> {
   Widget build(BuildContext context) {
     List<dynamic> links = data.get('urls');
     List<dynamic> sizes = data.get('sizes');
+
+    int sizeindex = 0;
+    List<Color> clr = [
+      Colors.grey.shade200,
+      Colors.grey.shade200,
+      Colors.grey.shade200,
+      Colors.grey.shade200,
+    ];
+    void changesize(int index) {
+      setState(() {
+        sizeindex = index;
+        clr[index] = pink;
+      });
+    }
+
     int id = data.get('id');
     String uid = FirebaseAuth.instance.currentUser!.uid;
     return Scaffold(
@@ -50,8 +65,16 @@ class _ItempageState extends State<Itempage> {
             ),
             InkWell(
               onTap: () {
-                addtocart(uid, id, links[0], data.get('price'),
-                    data.get('description'), data.get('title'));
+                addtocart(
+                    context,
+                    uid,
+                    id,
+                    links[0],
+                    data.get('price'),
+                    data.get('description'),
+                    data.get('title'),
+                    sizes[sizeindex]);
+                Navigator.pop(context);
               },
               child: Container(
                 width: 150,
@@ -131,7 +154,9 @@ class _ItempageState extends State<Itempage> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  changesize(index);
+                                },
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 5, vertical: 5),
@@ -139,7 +164,7 @@ class _ItempageState extends State<Itempage> {
                                   width: 40,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(13),
-                                      color: Colors.grey.shade200,
+                                      color: clr[index],
                                       border: Border.all(color: blue)),
                                   child: Center(
                                     child: Text(sizes[index].toUpperCase()),

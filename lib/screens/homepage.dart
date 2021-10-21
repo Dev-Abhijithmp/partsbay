@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -109,6 +110,7 @@ class _HomepageState extends State<Homepage> {
 }
 
 Widget _appbar(context, double latitude, double logtitude) {
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   return Container(
     width: double.infinity,
     height: 120,
@@ -188,17 +190,21 @@ Widget _appbar(context, double latitude, double logtitude) {
               ),
             ),
             IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications),
-              color: pink,
-            ),
-            IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Myicons.heart_empty,
                   size: 20,
                   color: pink,
-                ))
+                )),
+            IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Cartdatafetch(uid: uid);
+                }));
+              },
+              icon: Icon(Myicons.opencart),
+              color: pink,
+            ),
           ],
         )
       ],

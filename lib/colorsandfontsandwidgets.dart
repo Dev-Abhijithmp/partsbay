@@ -1,7 +1,9 @@
 // ignore_for_file: implementation_imports
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/add_data/add_user.dart';
 
 Color pink = Color.fromRGBO(242, 50, 134, 1);
 Color blue = Color.fromRGBO(28, 6, 59, 1);
@@ -83,8 +85,8 @@ Widget viewAppbar1(context, String title) {
       ));
 }
 
-Widget singlecartitem(context, String url, String title, String price,
-    String description, int count) {
+Widget singlecartitem(context, String url, String title, double price,
+    String description, int count, String size, int id) {
   return Card(
     margin: EdgeInsets.all(10),
     child: Column(
@@ -108,22 +110,25 @@ Widget singlecartitem(context, String url, String title, String price,
               children: [
                 Text(title),
                 Text(description),
-                Text("₹" + price),
+                Text("₹" + price.toString()),
                 SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      width: 25,
-                      height: 25,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: blue),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(
-                        Icons.exposure_minus_1_sharp,
-                        color: pink,
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        width: 25,
+                        height: 25,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: blue),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Icon(
+                          Icons.exposure_minus_1_sharp,
+                          color: pink,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -136,15 +141,28 @@ Widget singlecartitem(context, String url, String title, String price,
                     SizedBox(
                       width: 15,
                     ),
-                    Container(
-                      width: 25,
-                      height: 25,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: blue),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(
-                        Icons.add,
-                        color: pink,
+                    InkWell(
+                      onTap: () {
+                        addtocart(
+                            context,
+                            FirebaseAuth.instance.currentUser!.uid,
+                            id,
+                            url,
+                            price,
+                            description,
+                            title,
+                            size);
+                      },
+                      child: Container(
+                        width: 25,
+                        height: 25,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: blue),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Icon(
+                          Icons.add,
+                          color: pink,
+                        ),
                       ),
                     ),
                     SizedBox(

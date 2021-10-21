@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/authentication/loginpage.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
-import 'package:partsbay/screens/bottombar.dart';
+import 'package:partsbay/wrapper.dart';
 
 class Signinout extends StatefulWidget {
   const Signinout({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class _SigninoutState extends State<Signinout> {
                 ),
               );
             } else if (snapshot.hasData) {
-              return Bottompage();
+              return Wrapper();
             } else {
               return Loginpage();
             }

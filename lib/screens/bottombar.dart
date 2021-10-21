@@ -4,7 +4,6 @@ import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
 import 'package:partsbay/screens/homepage.dart';
-import 'package:partsbay/screens/offlinepage.dart';
 import 'package:partsbay/screens/orderscreen.dart';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -23,13 +22,7 @@ class _BottompageState extends State<Bottompage> {
   @override
   Widget build(BuildContext context) {
     print(uid);
-    List<Widget> pages = [
-      Homepage(),
-      Offlinepage(),
-      Cartdatafetch(uid: uid),
-      Orderscreen(),
-      Profilefetch(uid: uid)
-    ];
+    List<Widget> pages = [Homepage(), Orderscreen(), Profilefetch(uid: uid)];
 
     void selectedstate(int index) {
       setState(() {
@@ -50,16 +43,7 @@ class _BottompageState extends State<Bottompage> {
               color: pink,
             ),
             Icon(
-              Icons.gps_fixed_outlined,
-              size: 20,
-              color: pink,
-            ),
-            Icon(
-              Myicons.opencart,
-              color: pink,
-            ),
-            Icon(
-              Icons.offline_bolt,
+              Icons.local_shipping_outlined,
               color: pink,
             ),
             Icon(
