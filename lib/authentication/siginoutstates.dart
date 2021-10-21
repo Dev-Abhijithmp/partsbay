@@ -20,14 +20,14 @@ class _SigninoutState extends State<Signinout> {
           stream: changesign,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Text("Something went wrong");
+              return Container(child: Text("Something went wrong"));
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(
                 child: Center(
                   child: CircularProgressIndicator(
                     value: 2,
-                    semanticsLabel: "Loading...",
-                    color: Color.fromRGBO(242, 50, 134, 1),
+                    semanticsValue: "Loading...",
+                    color: pink,
                   ),
                 ),
               );
