@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:partsbay/authentication/siginoutstates.dart';
+import 'package:partsbay/inner_screen/loadingpage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +46,7 @@ class _AppState extends State<App> {
           }
 
           // Otherwise, show something whilst waiting for initialization to complete
-          return loading();
+          return Loadingpage();
         },
       ),
     );
@@ -57,18 +58,6 @@ Widget sOmethingWentWrong() {
     body: Container(
       child: Center(
         child: Text("Somethong went wrong"),
-      ),
-    ),
-  );
-}
-
-Widget loading() {
-  return Scaffold(
-    body: Container(
-      child: Center(
-        child: CircularProgressIndicator(
-          color: Colors.blue,
-        ),
       ),
     ),
   );

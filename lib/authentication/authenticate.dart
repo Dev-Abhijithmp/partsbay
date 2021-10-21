@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:partsbay/add_data/add_user.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 Stream<User?> changesign = auth.authStateChanges();
@@ -19,14 +20,12 @@ void signout() async {
   print("Signed out");
 }
 
-void createnew(String email, String password) {
-  auth.createUserWithEmailAndPassword(email: email, password: password);
-}
-
 void register(String email, String password) async {
   try {
-    await auth.createUserWithEmailAndPassword(email: email, password: password);
+    UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
     print('worked');
+    createuserprofile(userCredential.user!.uid, email);
   } on FirebaseException catch (e) {
     print(e.toString());
   }

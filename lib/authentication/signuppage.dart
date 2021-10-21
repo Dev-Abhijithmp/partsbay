@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/authentication/authenticate.dart';
+import 'package:partsbay/inner_screen/loadingpage.dart';
 
 class Signuppage extends StatefulWidget {
   Signuppage({Key? key}) : super(key: key);
@@ -194,7 +195,9 @@ class _SignuppageState extends State<Signuppage> {
                     child: InkWell(
                       onTap: () async {
                         register(controllerMail.text, controllerPass.text);
-                        Navigator.pop(context);
+                        Navigator.canPop(context)
+                            ? Navigator.pop(context)
+                            : Loadingpage();
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

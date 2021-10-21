@@ -1,20 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
-
 import 'package:partsbay/myicons_icons.dart';
-import 'package:partsbay/screens/cart.dart';
 
 class MenuScreen extends StatefulWidget {
-  MenuScreen({Key? key}) : super(key: key);
+  late final DocumentSnapshot data;
+  MenuScreen({Key? key, required this.data}) : super(key: key);
 
   @override
-  _MenuScreenState createState() => _MenuScreenState();
+  _MenuScreenState createState() => _MenuScreenState(data: data);
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  DocumentSnapshot data;
+
+  _MenuScreenState({required this.data});
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -27,11 +31,10 @@ class _MenuScreenState extends State<MenuScreen> {
         children: [
           viewAppbar1(context, "Profile"),
           sizedh(20),
-          profiletile("Name", "Abhijith"),
+          profiletile("Name", data.get('name')),
           sizedh(10),
-          profiletile("Email", "111abhiabhi@gmail.com"),
+          profiletile("Email", data.get('email')),
           sizedh(10),
-          profiletile("Phone", "9497747142"),
           sizedh(30),
           Divider(
             height: 1,

@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/add_data/add_user.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/myicons_icons.dart';
 
@@ -21,6 +23,8 @@ class _ItempageState extends State<Itempage> {
   Widget build(BuildContext context) {
     List<dynamic> links = data.get('urls');
     List<dynamic> sizes = data.get('sizes');
+    int id = data.get('id');
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     return Scaffold(
       bottomSheet: Container(
         height: 70,
@@ -44,16 +48,22 @@ class _ItempageState extends State<Itempage> {
             SizedBox(
               width: 40,
             ),
-            Container(
-              width: 150,
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25), color: blue),
-              child: Center(
-                  child: Text(
-                "ADD TO CART",
-                style: GoogleFonts.lato(color: pink),
-              )),
+            InkWell(
+              onTap: () {
+                addtocart(uid, id, links[0], data.get('price'),
+                    data.get('description'), data.get('title'));
+              },
+              child: Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25), color: blue),
+                child: Center(
+                    child: Text(
+                  "ADD TO CART",
+                  style: GoogleFonts.lato(color: pink),
+                )),
+              ),
             ),
           ],
         ),

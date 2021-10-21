@@ -1,26 +1,30 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
 
 class Cartscreen extends StatefulWidget {
-  const Cartscreen({Key? key}) : super(key: key);
+  late final List<DocumentSnapshot> data;
+  Cartscreen({Key? key, required this.data}) : super(key: key);
 
   @override
-  _CartscreenState createState() => _CartscreenState();
+  _CartscreenState createState() => _CartscreenState(data: data);
 }
 
 class _CartscreenState extends State<Cartscreen> {
+  _CartscreenState({required this.data});
+  late final List<DocumentSnapshot> data;
   @override
   Widget build(BuildContext context) {
+    print(data.length);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    bool cartlfag = true;
-    if (cartlfag == true) {
-      return nonemptycart(context);
+
+    if (data.length > 0) {
+      return nonemptycart(context, data);
     } else {
       return emptycart(context);
     }
@@ -59,149 +63,40 @@ Widget emptycart(context) {
 }
 
 //the function non empty cart contain data of cart page that contain items
-Widget nonemptycart(context) {
+Widget nonemptycart(context, List<DocumentSnapshot> data) {
   return Scaffold(
-    body: Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          viewAppbar1(context, "My Cart"),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, index) {
-                return singlecartitem(context);
-              },
-              itemCount: 10,
-            ),
-          ),
-          InkWell(
-            onTap: () {},
-            splashColor: Colors.blue.shade100,
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Center(
-                child: Text("CHECKOUT(₹200)", style: TextStyle(color: pink)),
-              ),
-              width: 200,
-              height: 40,
-              decoration: BoxDecoration(
-                color: blue,
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          ),
-          SizedBox(height: 60)
-        ],
-      ),
-    ),
-  );
-}
-
-Widget viewAppbar1(context, String title) {
-  return Container(
-      height: 100,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: blue,
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 1,
-              spreadRadius: 1,
-              color: Colors.black26,
-              offset: Offset(0, 1))
-        ],
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: GoogleFonts.lato(
-              fontSize: 30, color: pink, fontWeight: FontWeight.bold),
-        ),
-      ));
-}
-
-Widget singlecartitem(context) {
-  return Card(
-    margin: EdgeInsets.all(10),
-    child: Column(
+    body: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-              width: 120,
-              height: 130,
-              child: Image.asset(
-                "images/duke390.jpeg",
-                fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+        viewAppbar1(context, "My Cart"),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
               children: [
-                Text('Name'),
-                Text("Description"),
-                Text("price"),
                 SizedBox(
-                  height: 20,
+                  height: 170 * data.length.toDouble(),
+                  width: double.infinity,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, index) {
+                      return singlecartitem(
+                          context,
+                          data[index].get('url'),
+                          data[index].get('title'),
+                          data[index].get('price'),
+                          data[index].get('description'),
+                          data[index].get('count'));
+                    },
+                    itemCount: 4,
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: blue),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(
-                        Icons.exposure_minus_1_sharp,
-                        color: pink,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("1"),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: blue),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(
-                        Icons.add,
-                        color: pink,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 60,
-                    ),
-                    Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: blue),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(
-                        Icons.delete,
-                        color: pink,
-                      ),
-                    ),
-                  ],
-                )
+                checkoutbutton()
               ],
             ),
-          ],
+          ),
         ),
+        sizedh(70)
       ],
     ),
   );

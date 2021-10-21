@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
+import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
-import 'package:partsbay/screens/cart.dart';
 import 'package:partsbay/screens/homepage.dart';
 import 'package:partsbay/screens/offlinepage.dart';
 import 'package:partsbay/screens/orderscreen.dart';
-import 'package:partsbay/screens/menuscreem.dart';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Bottompage extends StatefulWidget {
@@ -17,14 +18,17 @@ class Bottompage extends StatefulWidget {
 
 class _BottompageState extends State<Bottompage> {
   int selectedIndex = 0;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
   @override
   Widget build(BuildContext context) {
+    print(uid);
     List<Widget> pages = [
       Homepage(),
       Offlinepage(),
-      Cartscreen(),
+      Cartdatafetch(uid: uid),
       Orderscreen(),
-      MenuScreen(),
+      Profilefetch(uid: uid)
     ];
 
     void selectedstate(int index) {
