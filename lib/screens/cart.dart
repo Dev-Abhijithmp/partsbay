@@ -1,10 +1,11 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
+import 'package:partsbay/provider/changeprovider.dart';
+import 'package:provider/provider.dart';
 
 class Cartscreen extends StatefulWidget {
   late final List<DocumentSnapshot> data;
@@ -20,94 +21,57 @@ class _CartscreenState extends State<Cartscreen> {
   @override
   Widget build(BuildContext context) {
     print(data.length);
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    print(data.length);
 
-    if (data.length > 0) {
-      return nonemptycart(context, data);
-    } else {
-      return emptycart(context);
-    }
-  }
-}
-
-//the  function emptycart contain ui data of emty cart page
-Widget emptycart(context) {
-  return SafeArea(
-    child: Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color.fromRGBO(80, 167, 194, 1),
-            Color.fromRGBO(183, 248, 219, 1),
-            Colors.white,
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text(
-                "Your cart is empty",
-                style: TextStyle(fontSize: 40),
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text("Contine Shopping"))
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-//the function non empty cart contain data of cart page that contain items
-Widget nonemptycart(context, List<DocumentSnapshot> data) {
-  return Scaffold(
-    body: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        viewAppbar1(context, "My Cart"),
-        Expanded(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 170 * (data.length).toDouble(),
-                  width: double.infinity,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, index) {
-                      return singlecartitem(
-                        context,
-                        data[index].get('url'),
-                        data[index].get('title'),
-                        data[index].get('price').toDouble(),
-                        data[index].get('description'),
-                        data[index].get('count'),
-                        data[index].get('size'),
-                        data[index].get('id'),
-                      );
-                    },
-                    itemCount: data.length,
-                  ),
-                ),
-              ],
-            ),
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          viewAppbar1(context, "My Cart"),
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('user')
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection('cart')
+                    .snapshots(includeMetadataChanges: true),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData == true) {
+                    List<DocumentSnapshot> cartdata = snapshot.data!.docs;
+                    return SizedBox(
+                      height: 200 * (cartdata.length).toDouble(),
+                      width: double.infinity,
+                      child: ListView.builder(
+                        padding: EdgeInsets.symmetric(vertical: 5),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, index) {
+                          return singlecartitem(
+                            context,
+                            data[index].get('url'),
+                            data[index].get('title'),
+                            data[index].get('price').toDouble(),
+                            data[index].get('description'),
+                            data[index].get('size'),
+                            data[index].get('id'),
+                            data[index].get('count'),
+                          );
+                        },
+                        itemCount: cartdata.length,
+                      ),
+                    );
+                  } else {
+                    return Text("");
+                  }
+                }),
           ),
-        ),
-        checkoutbutton(),
-        sizedh(30)
-      ],
-    ),
-  );
+          checkoutbutton(Provider.of<Change>(context).total),
+          sizedh(55)
+        ],
+      ),
+    );
+  }
 }

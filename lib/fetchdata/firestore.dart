@@ -1,10 +1,18 @@
+// ignore_for_file: close_sinks
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
+
 import 'package:partsbay/inner_screen/loadingpage.dart';
 import 'package:partsbay/inner_screen/viewpage.dart';
 import 'package:partsbay/screens/cart.dart';
+import 'package:partsbay/screens/emtycarwhishlistt.dart';
 import 'package:partsbay/screens/menuscreem.dart';
+import 'package:partsbay/screens/whishlist.dart';
 
 CollectionReference prod = FirebaseFirestore.instance.collection('products');
 CollectionReference usr = FirebaseFirestore.instance.collection('user');
@@ -81,9 +89,17 @@ class Profilefetch extends StatelessWidget {
   }
 }
 
-class Cartdatafetch extends StatelessWidget {
+class CartWhishlistdatafetch extends StatelessWidget {
   late final String uid;
-  Cartdatafetch({Key? key, required this.uid}) : super(key: key);
+  late final int whishcartindex;
+  late final String collection;
+
+  CartWhishlistdatafetch(
+      {Key? key,
+      required this.uid,
+      required this.whishcartindex,
+      required this.collection})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +107,8 @@ class Cartdatafetch extends StatelessWidget {
         stream: FirebaseFirestore.instance
             .collection('user')
             .doc(uid)
-            .collection('cart')
-            .snapshots(),
+            .collection(collection)
+            .snapshots(includeMetadataChanges: true),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Container(child: Text("Something went wrong"));
@@ -100,16 +116,49 @@ class Cartdatafetch extends StatelessWidget {
             return Loadingpage();
           } else if (snapshot.hasData) {
             List<DocumentSnapshot> data = snapshot.data!.docs;
-            if (data.isNotEmpty == true) {
-              return Cartscreen(
+            List<StatefulWidget> whishcartlist = [
+              Cartscreen(
                 data: data,
-              );
+              ),
+              Whishlistpage(
+                data: data,
+              )
+            ];
+            if (data.isNotEmpty == true) {
+              return whishcartlist[whishcartindex];
             } else {
-              return Container(child: Text("Something went wrong"));
+              return Emptycartwhishlist(title: collection);
             }
           } else {
             return Loadingpage();
           }
         });
   }
+}
+
+Widget cartcount(String id) {
+  return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('user')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('cart')
+          .doc(id)
+          .snapshots(includeMetadataChanges: true),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.active ||
+            snapshot.connectionState == ConnectionState.done) {
+          DocumentSnapshot<Map<String, dynamic>> data = snapshot.data;
+
+          if (data.exists == true) {
+            return Text(
+              '${data.get('count')}',
+              style: GoogleFonts.lato(fontSize: 15, color: blue),
+            );
+          } else {
+            return Text('');
+          }
+        }
+
+        return Text('');
+      });
 }

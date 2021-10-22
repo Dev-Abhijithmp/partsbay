@@ -190,21 +190,17 @@ Widget _appbar(context, double latitude, double logtitude) {
               ),
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CartWhishlistdatafetch(
+                        uid: uid, whishcartindex: 1, collection: 'whishlist');
+                  }));
+                },
                 icon: Icon(
                   Myicons.heart_empty,
                   size: 20,
                   color: pink,
                 )),
-            IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Cartdatafetch(uid: uid);
-                }));
-              },
-              icon: Icon(Myicons.opencart),
-              color: pink,
-            ),
           ],
         )
       ],

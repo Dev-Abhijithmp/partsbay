@@ -4,7 +4,6 @@ import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
 import 'package:partsbay/screens/homepage.dart';
-import 'package:partsbay/screens/orderscreen.dart';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -22,7 +21,15 @@ class _BottompageState extends State<Bottompage> {
   @override
   Widget build(BuildContext context) {
     print(uid);
-    List<Widget> pages = [Homepage(), Orderscreen(), Profilefetch(uid: uid)];
+    List<Widget> pages = [
+      Homepage(),
+      CartWhishlistdatafetch(
+        uid: uid,
+        whishcartindex: 0,
+        collection: 'cart',
+      ),
+      Profilefetch(uid: uid)
+    ];
 
     void selectedstate(int index) {
       setState(() {
@@ -30,32 +37,44 @@ class _BottompageState extends State<Bottompage> {
       });
     }
 
-    return Scaffold(
-        extendBody: true,
-        body: pages[selectedIndex],
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.white,
-          color: blue,
-          height: 50,
-          items: [
-            Icon(
-              Icons.home,
-              color: pink,
+    return Stack(
+      children: [
+        pages[selectedIndex],
+        Positioned(
+          bottom: 0,
+          left: 0,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            child: Scaffold(
+              bottomNavigationBar: CurvedNavigationBar(
+                backgroundColor: Colors.white,
+                color: blue,
+                height: 50,
+                items: [
+                  Icon(
+                    Icons.home,
+                    color: pink,
+                  ),
+                  Icon(
+                    Icons.local_shipping_outlined,
+                    color: pink,
+                  ),
+                  Icon(
+                    Myicons.user_male,
+                    size: 20,
+                    color: pink,
+                  ),
+                ],
+                onTap: (index) {
+                  selectedstate(index);
+                },
+              ),
             ),
-            Icon(
-              Icons.local_shipping_outlined,
-              color: pink,
-            ),
-            Icon(
-              Myicons.user_male,
-              size: 20,
-              color: pink,
-            ),
-          ],
-          onTap: (index) {
-            selectedstate(index);
-          },
-        ));
+          ),
+        )
+      ],
+    );
   }
 }
 /*BottomAppBar(

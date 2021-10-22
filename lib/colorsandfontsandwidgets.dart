@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/add_data/add_user.dart';
+import 'package:partsbay/fetchdata/firestore.dart';
 
 Color pink = Color.fromRGBO(242, 50, 134, 1);
 Color blue = Color.fromRGBO(28, 6, 59, 1);
@@ -43,14 +44,14 @@ Widget profiletile(String title, String subtitle) {
   );
 }
 
-Widget checkoutbutton() {
+Widget checkoutbutton(double total) {
   return InkWell(
     onTap: () {},
     splashColor: Colors.blue.shade100,
     child: Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Center(
-        child: Text("CHECKOUT(₹200)", style: TextStyle(color: pink)),
+        child: Text("CHECKOUT(₹$total)", style: TextStyle(color: pink)),
       ),
       width: 200,
       height: 40,
@@ -86,7 +87,122 @@ Widget viewAppbar1(context, String title) {
 }
 
 Widget singlecartitem(context, String url, String title, double price,
-    String description, int count, String size, int id) {
+    String description, String size, String id, int count) {
+  addtototal(price, count);
+  return SizedBox(
+    width: MediaQuery.of(context).size.height * 0.9,
+    child: Card(
+      margin: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 120,
+                height: 130,
+                child: Image.network(
+                  url,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title),
+                  Text(description),
+                  Text("₹" + price.toString()),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          subtractcount(
+                              FirebaseAuth.instance.currentUser!.uid, id);
+                        },
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: blue),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Icon(
+                            Icons.exposure_minus_1_sharp,
+                            color: pink,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      cartcount(id),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          addtocart(
+                              context,
+                              FirebaseAuth.instance.currentUser!.uid,
+                              id,
+                              url,
+                              price,
+                              description,
+                              title,
+                              size);
+                        },
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: blue),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Icon(
+                            Icons.add,
+                            color: pink,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 60,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          removefromcart(
+                              FirebaseAuth.instance.currentUser!.uid, id);
+                        },
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: blue),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Icon(
+                            Icons.delete,
+                            color: pink,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget singlewhishlistitem(context, String url, String title, double price,
+    String description, String id) {
   return Card(
     margin: EdgeInsets.all(10),
     child: Column(
@@ -115,68 +231,19 @@ Widget singlecartitem(context, String url, String title, double price,
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
-                      onTap: () {},
                       child: Container(
-                        width: 25,
-                        height: 25,
+                        width: 30,
+                        height: 30,
                         decoration: BoxDecoration(
                             border: Border.all(color: blue),
                             borderRadius: BorderRadius.circular(10)),
                         child: Icon(
-                          Icons.exposure_minus_1_sharp,
+                          Icons.delete,
                           color: pink,
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      count.toString(),
-                      style: GoogleFonts.lato(fontSize: 20, color: blue),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        addtocart(
-                            context,
-                            FirebaseAuth.instance.currentUser!.uid,
-                            id,
-                            url,
-                            price,
-                            description,
-                            title,
-                            size);
-                      },
-                      child: Container(
-                        width: 25,
-                        height: 25,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: blue),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Icon(
-                          Icons.add,
-                          color: pink,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 60,
-                    ),
-                    Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: blue),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(
-                        Icons.delete,
-                        color: pink,
                       ),
                     ),
                   ],

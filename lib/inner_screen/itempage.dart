@@ -19,26 +19,40 @@ class _ItempageState extends State<Itempage> {
   final DocumentSnapshot data;
 
   _ItempageState(this.data);
+  int sizeindex = 0;
+  List<Color> clr = [
+    Colors.grey.shade200,
+    Colors.grey.shade200,
+    Colors.grey.shade200,
+    Colors.grey.shade200,
+    Colors.grey.shade200,
+    Colors.grey.shade200,
+  ];
   @override
   Widget build(BuildContext context) {
     List<dynamic> links = data.get('urls');
     List<dynamic> sizes = data.get('sizes');
 
-    int sizeindex = 0;
-    List<Color> clr = [
-      Colors.grey.shade200,
-      Colors.grey.shade200,
-      Colors.grey.shade200,
-      Colors.grey.shade200,
-    ];
-    void changesize(int index) {
+    void changesize(int val) {
       setState(() {
-        sizeindex = index;
-        clr[index] = pink;
+        sizeindex = val;
       });
     }
 
-    int id = data.get('id');
+    void changecolor(int val) {
+      setState(() {
+        clr[0] = Colors.grey.shade200;
+        clr[1] = Colors.grey.shade200;
+        clr[2] = Colors.grey.shade200;
+        clr[3] = Colors.grey.shade200;
+        clr[4] = Colors.grey.shade200;
+        clr[5] = Colors.grey.shade200;
+
+        clr[val] = pink;
+      });
+    }
+
+    String id = data.get('id').toString();
     String uid = FirebaseAuth.instance.currentUser!.uid;
     return Scaffold(
       bottomSheet: Container(
@@ -70,7 +84,7 @@ class _ItempageState extends State<Itempage> {
                     uid,
                     id,
                     links[0],
-                    data.get('price'),
+                    data.get('price').toDouble(),
                     data.get('description'),
                     data.get('title'),
                     sizes[sizeindex]);
@@ -156,6 +170,8 @@ class _ItempageState extends State<Itempage> {
                             return GestureDetector(
                                 onTap: () {
                                   changesize(index);
+                                  changecolor(index);
+                                  print(sizes[sizeindex]);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
@@ -250,7 +266,17 @@ class _ItempageState extends State<Itempage> {
                     size: 20,
                     color: pink,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    addtowhishlist(
+                        context,
+                        uid,
+                        id,
+                        links[0],
+                        data.get('price').toDouble(),
+                        data.get('description'),
+                        data.get('title'),
+                        sizes[sizeindex]);
+                  },
                 ),
               ),
             ),
