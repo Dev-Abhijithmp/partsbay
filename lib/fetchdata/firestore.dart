@@ -55,7 +55,31 @@ class Searchdata extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return StreamBuilder<QuerySnapshot>(
+      stream: prod
+          .where('title', arrayContains: str)
+          .snapshots(includeMetadataChanges: true),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          List<DocumentSnapshot> data = snapshot.data!.docs;
+          if (data.isEmpty) {
+            return Scaffold(body: Text("Someething went wrong"));
+          }
+          print(data.length);
+          print(data[0].get('price').toString());
+
+          return Viewpage(
+            data: data,
+          );
+        }
+
+        return Loadingpage();
+      },
+    );
   }
 }
 

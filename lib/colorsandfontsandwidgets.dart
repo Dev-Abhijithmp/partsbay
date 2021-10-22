@@ -127,8 +127,8 @@ Widget singlecartitem(context, String url, String title, double price,
                               FirebaseAuth.instance.currentUser!.uid, id);
                         },
                         child: Container(
-                          width: 25,
-                          height: 25,
+                          width: 28,
+                          height: 28,
                           decoration: BoxDecoration(
                               border: Border.all(color: blue),
                               borderRadius: BorderRadius.circular(10)),
@@ -141,7 +141,10 @@ Widget singlecartitem(context, String url, String title, double price,
                       SizedBox(
                         width: 15,
                       ),
-                      cartcount(id),
+                      Container(
+                          width: 28,
+                          height: 28,
+                          child: Center(child: cartcount(id))),
                       SizedBox(
                         width: 15,
                       ),
@@ -158,8 +161,8 @@ Widget singlecartitem(context, String url, String title, double price,
                               size);
                         },
                         child: Container(
-                          width: 25,
-                          height: 25,
+                          width: 28,
+                          height: 28,
                           decoration: BoxDecoration(
                               border: Border.all(color: blue),
                               borderRadius: BorderRadius.circular(10)),
