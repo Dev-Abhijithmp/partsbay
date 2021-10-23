@@ -4,73 +4,108 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
-import 'package:partsbay/provider/changeprovider.dart';
-import 'package:provider/provider.dart';
+import 'package:partsbay/inner_screen/loadingpage.dart';
+import 'package:partsbay/inner_screen/somethingwentwrong.dart';
+import 'package:partsbay/screens/emtycarwhishlistt.dart';
 
 class Cartscreen extends StatefulWidget {
-  late final List<DocumentSnapshot> data;
-  Cartscreen({Key? key, required this.data}) : super(key: key);
+  Cartscreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _CartscreenState createState() => _CartscreenState(data: data);
+  _CartscreenState createState() => _CartscreenState();
 }
 
 class _CartscreenState extends State<Cartscreen> {
-  _CartscreenState({required this.data});
-  late final List<DocumentSnapshot> data;
   @override
   Widget build(BuildContext context) {
-    print(data.length);
-
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          viewAppbar1(context, "My Cart"),
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('user')
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('cart')
-                    .snapshots(includeMetadataChanges: true),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData == true) {
-                    List<DocumentSnapshot> cartdata = snapshot.data!.docs;
-                    return SizedBox(
-                      height: 200 * (cartdata.length).toDouble(),
-                      width: double.infinity,
-                      child: ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, index) {
-                          return singlecartitem(
-                            context,
-                            data[index].get('url'),
-                            data[index].get('title'),
-                            data[index].get('price').toDouble(),
-                            data[index].get('description'),
-                            data[index].get('size'),
-                            data[index].get('id'),
-                            data[index].get('count'),
-                          );
-                        },
-                        itemCount: cartdata.length,
-                      ),
-                    );
-                  } else {
-                    return Text("");
-                  }
-                }),
-          ),
-          checkoutbutton(Provider.of<Change>(context).total),
-          sizedh(55)
-        ],
+      body: Container(
+        color: bgcolor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            viewAppbar1(context, "My Cart"),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('user')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('cart')
+                      .snapshots(includeMetadataChanges: true),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError == true) {
+                      return SOmethingwentwrong();
+                    }
+                    if (snapshot.hasData == true) {
+                      List<DocumentSnapshot> cartdata = snapshot.data!.docs;
+                      if (cartdata.length == 0) {
+                        return Emptycart(title: 'cart');
+                      } else {
+                        return Stack(
+                          children: [
+                            SizedBox(
+                              height: 200 * (cartdata.length).toDouble(),
+                              width: double.infinity,
+                              child: ListView.builder(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (BuildContext context, index) {
+                                  return singlecartitem(
+                                    context,
+                                    cartdata[index].get('url'),
+                                    cartdata[index].get('title'),
+                                    cartdata[index].get('price').toDouble(),
+                                    cartdata[index].get('description'),
+                                    cartdata[index].get('size'),
+                                    cartdata[index].get('id'),
+                                    cartdata[index].get('count'),
+                                  );
+                                },
+                                itemCount: cartdata.length,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 60,
+                              left: MediaQuery.of(context).size.width * 0.25,
+                              child: StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('user')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection('cart')
+                                      .snapshots(includeMetadataChanges: true),
+                                  builder: (context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    double total = 0.0;
+                                    if (snapshot.hasData == true) {
+                                      List<DocumentSnapshot> totaldata =
+                                          snapshot.data!.docs;
+
+                                      for (var item in totaldata) {
+                                        total = total + item.get('total');
+                                      }
+                                      return checkoutbutton(total);
+                                    }
+                                    return checkoutbutton(total);
+                                  }),
+                            )
+                          ],
+                        );
+                      }
+                    } else {
+                      return Loadingpage();
+                    }
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }

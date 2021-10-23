@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class Change extends ChangeNotifier {
-  String notifysize = '';
-  double total = 0;
-  void changesize(String size) {
-    notifysize = size;
-    notifyListeners();
-  }
+  int providerindex = 0;
 
-  void changetotal(double price, int count) {
-    total = total + (price * count);
+  void changeindex(int index) {
+    providerindex = index;
     notifyListeners();
   }
 }

@@ -7,9 +7,24 @@ import 'package:partsbay/add_data/add_user.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
 
 Color pink = Color.fromRGBO(242, 50, 134, 1);
-Color blue = Color.fromRGBO(28, 6, 59, 1);
+Color blue = Color.fromRGBO(51, 102, 255, 1);
 Color greybackground = Colors.grey.shade200;
 Color white = Colors.white;
+Color bgcolor = Colors.white54;
+AlertDialog alert(BuildContext context) {
+  AlertDialog alertDialog = AlertDialog(
+    content: Text("Please select size"),
+    actions: [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: Text("ok"),
+      ),
+    ],
+  );
+  return alertDialog;
+}
 
 Widget sizedh(double value) {
   return SizedBox(
@@ -88,18 +103,23 @@ Widget viewAppbar1(context, String title) {
 
 Widget singlecartitem(context, String url, String title, double price,
     String description, String size, String id, int count) {
-  addtototal(price, count);
   return SizedBox(
     width: MediaQuery.of(context).size.height * 0.9,
-    child: Card(
+    child: Container(
+      height: 120,
       margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.circular(40),
+          border: Border.all(color: pink)),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             children: [
               Container(
-                width: 120,
-                height: 130,
+                width: 100,
+                height: 80,
                 child: Image.network(
                   url,
                   fit: BoxFit.contain,
@@ -112,7 +132,9 @@ Widget singlecartitem(context, String url, String title, double price,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title),
+                  Text(title.toUpperCase(),
+                      style: GoogleFonts.lato(
+                          fontWeight: FontWeight.bold, fontSize: 15)),
                   Text(description),
                   Text("₹" + price.toString()),
                   SizedBox(
@@ -123,8 +145,8 @@ Widget singlecartitem(context, String url, String title, double price,
                     children: [
                       InkWell(
                         onTap: () {
-                          subtractcount(
-                              FirebaseAuth.instance.currentUser!.uid, id);
+                          subtractcount(FirebaseAuth.instance.currentUser!.uid,
+                              id, price);
                         },
                         child: Container(
                           width: 28,

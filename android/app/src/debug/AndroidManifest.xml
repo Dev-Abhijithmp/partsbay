@@ -7,4 +7,8 @@
     <!-- To request foreground location access, declare one of these permissions. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <application>
+    <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAhESIgXVVnBKgNN6WJBGy2AYBJZccTyLc"/>
+    </application>
 </manifest>

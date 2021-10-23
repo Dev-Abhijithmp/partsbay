@@ -25,6 +25,7 @@ class _MenuScreenState extends State<MenuScreen> {
       statusBarColor: Colors.transparent,
     ));
     return Scaffold(
+      backgroundColor: bgcolor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

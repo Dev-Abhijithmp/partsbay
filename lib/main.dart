@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:partsbay/authentication/siginoutstates.dart';
 import 'package:partsbay/inner_screen/loadingpage.dart';
+import 'package:partsbay/inner_screen/somethingwentwrong.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +39,7 @@ class _AppState extends State<App> {
         builder: (context, snapshot) {
           // Check for errors
           if (snapshot.hasError) {
-            return sOmethingWentWrong();
+            return SOmethingwentwrong();
           }
 
           // Once complete, show your application
@@ -52,14 +53,4 @@ class _AppState extends State<App> {
       ),
     );
   }
-}
-
-Widget sOmethingWentWrong() {
-  return Scaffold(
-    body: Container(
-      child: Center(
-        child: Text("Somethong went wrong"),
-      ),
-    ),
-  );
 }

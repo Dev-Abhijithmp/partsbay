@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.partsbay">
-   <application
+    <application
         android:label="partsbay"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -37,5 +37,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAhESIgXVVnBKgNN6WJBGy2AYBJZccTyLc"/>
     </application>
 </manifest>

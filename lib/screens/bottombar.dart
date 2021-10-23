@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
+import 'package:partsbay/provider/changeprovider.dart';
+import 'package:partsbay/screens/cart.dart';
 import 'package:partsbay/screens/homepage.dart';
-
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:provider/provider.dart';
 
 class Bottompage extends StatefulWidget {
   Bottompage({Key? key}) : super(key: key);
@@ -15,31 +17,19 @@ class Bottompage extends StatefulWidget {
 }
 
 class _BottompageState extends State<Bottompage> {
-  int selectedIndex = 0;
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
     print(uid);
-    List<Widget> pages = [
-      Homepage(),
-      CartWhishlistdatafetch(
-        uid: uid,
-        whishcartindex: 0,
-        collection: 'cart',
-      ),
-      Profilefetch(uid: uid)
-    ];
-
-    void selectedstate(int index) {
-      setState(() {
-        selectedIndex = index;
-      });
-    }
+    List<Widget> pages = [Homepage(), Cartscreen(), Profilefetch(uid: uid)];
 
     return Stack(
       children: [
-        pages[selectedIndex],
+        Scaffold(
+          body: pages[Provider.of<Change>(context).providerindex],
+          extendBodyBehindAppBar: true,
+        ),
         Positioned(
           bottom: 0,
           left: 0,
@@ -48,7 +38,7 @@ class _BottompageState extends State<Bottompage> {
             height: 50,
             child: Scaffold(
               bottomNavigationBar: CurvedNavigationBar(
-                backgroundColor: Colors.white,
+                backgroundColor: bgcolor,
                 color: blue,
                 height: 50,
                 items: [
@@ -57,7 +47,7 @@ class _BottompageState extends State<Bottompage> {
                     color: pink,
                   ),
                   Icon(
-                    Icons.local_shipping_outlined,
+                    Myicons.opencart,
                     color: pink,
                   ),
                   Icon(
@@ -67,7 +57,8 @@ class _BottompageState extends State<Bottompage> {
                   ),
                 ],
                 onTap: (index) {
-                  selectedstate(index);
+                  Provider.of<Change>(context, listen: false)
+                      .changeindex(index);
                 },
               ),
             ),

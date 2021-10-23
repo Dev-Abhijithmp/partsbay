@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/authentication/loginpage.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
+import 'package:partsbay/inner_screen/loadingpage.dart';
+import 'package:partsbay/inner_screen/somethingwentwrong.dart';
 import 'package:partsbay/wrapper.dart';
 
 class Signinout extends StatefulWidget {
@@ -20,17 +22,9 @@ class _SigninoutState extends State<Signinout> {
           stream: changesign,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Container(child: Text("Something went wrong"));
+              return SOmethingwentwrong();
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    value: 2,
-                    semanticsValue: "Loading...",
-                    color: pink,
-                  ),
-                ),
-              );
+              return Loadingpage();
             } else if (snapshot.hasData) {
               return Wrapper();
             } else {

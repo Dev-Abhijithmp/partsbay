@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 CollectionReference user = FirebaseFirestore.instance.collection('user');
 
@@ -13,7 +12,6 @@ Future<void> createuserprofile(
     'id': id,
     'name': "",
     'email': email,
-    'total': 0.0,
   });
 }
 
@@ -31,13 +29,18 @@ Future<void> addtocart(context, String uid, String id, String url, double price,
       'description': description,
       'url': url,
       'price': price,
-      'size': size
+      'size': size,
+      'total': price
     });
   } else {
     await documentReference
         .collection('cart')
         .doc(id.toString())
         .update({'count': (countdata.get('count') + 1)});
+    await documentReference
+        .collection('cart')
+        .doc(id.toString())
+        .update({'total': ((countdata.get('count') + 1) * price)});
   }
 }
 
@@ -64,7 +67,7 @@ Future<void> addtowhishlist(context, String uid, String id, String url,
   }
 }
 
-Future<void> subtractcount(String uid, String id) async {
+Future<void> subtractcount(String uid, String id, double price) async {
   DocumentReference documentReference = user.doc(uid);
   DocumentSnapshot<Map<String, dynamic>>? countdata =
       await documentReference.collection('cart').doc(id).get();
@@ -73,6 +76,10 @@ Future<void> subtractcount(String uid, String id) async {
         .collection('cart')
         .doc(id)
         .update({'count': (countdata.get('count') - 1)});
+    await documentReference
+        .collection('cart')
+        .doc(id)
+        .update({'total': ((countdata.get('count') - 1) * price)});
   } else {
     removefromcart(uid, id);
   }
@@ -89,9 +96,4 @@ Future<void> removefromwhishlist(String uid, String id) async {
 }
 
 //Provider.of<Change>(context).cartcount
-Future<void> addtototal(double price, int count) async {
-  DocumentReference documentReference =
-      user.doc(FirebaseAuth.instance.currentUser!.uid);
-  DocumentSnapshot<Object?> total = await documentReference.get();
-  print(total);
-}
+

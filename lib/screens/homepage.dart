@@ -44,7 +44,7 @@ class _HomepageState extends State<Homepage> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: bgcolor,
       body: Column(
         children: [
           _appbar(context, latitude, logtitude),
@@ -193,7 +193,10 @@ Widget _appbar(context, double latitude, double logtitude) {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return CartWhishlistdatafetch(
-                        uid: uid, whishcartindex: 1, collection: 'whishlist');
+                      uid: uid,
+                      collection: 'cart',
+                      index: 0,
+                    );
                   }));
                 },
                 icon: Icon(
