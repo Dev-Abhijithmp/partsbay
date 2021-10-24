@@ -39,21 +39,33 @@ class _BottompageState extends State<Bottompage> {
             child: Scaffold(
               bottomNavigationBar: CurvedNavigationBar(
                 backgroundColor: bgcolor,
-                color: blue,
+                color: Color.fromRGBO(147, 217, 163, 1),
                 height: 50,
                 items: [
                   Icon(
                     Icons.home,
-                    color: pink,
+                    color: Colors.black,
                   ),
-                  Icon(
-                    Myicons.opencart,
-                    color: pink,
+                  Stack(
+                    alignment: AlignmentDirectional.topEnd,
+                    fit: StackFit.loose,
+                    clipBehavior: Clip.antiAlias,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
+                      ),
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: totalcartamount(),
+                      ),
+                    ],
                   ),
                   Icon(
                     Myicons.user_male,
                     size: 20,
-                    color: pink,
+                    color: Colors.black,
                   ),
                 ],
                 onTap: (index) {

@@ -46,7 +46,7 @@ class _ItempageState extends State<Itempage> {
         clr[4] = Colors.grey.shade200;
         clr[5] = Colors.grey.shade200;
 
-        clr[val] = pink;
+        clr[val] = green;
       });
     }
 
@@ -57,7 +57,7 @@ class _ItempageState extends State<Itempage> {
         height: 70,
         width: double.infinity,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
               onTap: () {
@@ -66,14 +66,15 @@ class _ItempageState extends State<Itempage> {
                 }));
               },
               child: Container(
-                width: 150,
-                height: 50,
+                width: 130,
+                height: 40,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25), color: blue),
+                    borderRadius: BorderRadius.circular(25), color: green),
                 child: Center(
                     child: Text(
                   "Offline",
-                  style: GoogleFonts.lato(color: pink),
+                  style: GoogleFonts.lato(
+                      color: blue, fontWeight: FontWeight.bold),
                 )),
               ),
             ),
@@ -102,14 +103,15 @@ class _ItempageState extends State<Itempage> {
                 }
               },
               child: Container(
-                width: 150,
-                height: 50,
+                width: 130,
+                height: 40,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25), color: blue),
+                    borderRadius: BorderRadius.circular(25), color: green),
                 child: Center(
                     child: Text(
                   "ADD TO CART",
-                  style: GoogleFonts.lato(color: pink),
+                  style: GoogleFonts.lato(
+                      color: blue, fontWeight: FontWeight.bold),
                 )),
               ),
             ),
@@ -234,13 +236,13 @@ class _ItempageState extends State<Itempage> {
                         onPressed: () {},
                         child: Text(
                           "view all reviews",
-                          style: GoogleFonts.lato(color: pink),
+                          style: GoogleFonts.lato(color: blue),
                         )),
                     TextButton(
                         onPressed: () {},
                         child: Text(
                           "Add review",
-                          style: GoogleFonts.lato(color: pink),
+                          style: GoogleFonts.lato(color: blue),
                         )),
                     SizedBox(
                       height: 100,
@@ -261,7 +263,7 @@ class _ItempageState extends State<Itempage> {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: pink,
+                    color: blue,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -277,12 +279,12 @@ class _ItempageState extends State<Itempage> {
                 width: 40,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey.shade300),
+                    color: greybackground),
                 child: IconButton(
                   icon: Icon(
                     Myicons.heart_empty,
                     size: 20,
-                    color: pink,
+                    color: blue,
                   ),
                   onPressed: () {
                     addtowhishlist(

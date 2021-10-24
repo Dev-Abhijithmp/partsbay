@@ -50,13 +50,13 @@ Widget viewAppbar(context) {
   return Container(
     height: 100,
     width: double.infinity,
-    color: blue,
+    color: green,
     child: Row(
       children: [
         IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Color.fromRGBO(242, 50, 134, 1),
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -65,15 +65,10 @@ Widget viewAppbar(context) {
         SizedBox(
           width: 80,
         ),
-        Container(
-          margin: EdgeInsets.only(top: 10),
-          height: 50,
-          width: 130,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            image: DecorationImage(
-                image: AssetImage("icons/plogo.jpeg"), fit: BoxFit.fill),
-          ),
+        Text(
+          "Partsbay",
+          style: GoogleFonts.oxygen(
+              fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
         ),
         Spacer()
       ],

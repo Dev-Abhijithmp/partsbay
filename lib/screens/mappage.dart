@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:partsbay/fetchdata/enablepermission.dart';
+import 'package:partsbay/inner_screen/loadingpage.dart';
+import 'package:partsbay/inner_screen/somethingwentwrong.dart';
 
 import '../colorsandfontsandwidgets.dart';
 
@@ -13,14 +17,30 @@ class MAppage extends StatefulWidget {
 class _MAppageState extends State<MAppage> {
   @override
   Widget build(BuildContext context) {
-    CameraPosition cameraPosition =
-        CameraPosition(target: LatLng(10.1129646, 76.2573471), zoom: 13);
     return Scaffold(
       body: Stack(
         children: [
-          GoogleMap(
-            initialCameraPosition: cameraPosition,
-          ),
+          FutureBuilder<Position>(
+              future: determinePosition(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData == true) {
+                  CameraPosition cameraPosition = CameraPosition(
+                      target: LatLng(
+                          snapshot.data!.latitude, snapshot.data!.longitude),
+                      zoom: 13);
+
+                  return GoogleMap(
+                    initialCameraPosition: cameraPosition,
+                    mapType: MapType.normal,
+                    mapToolbarEnabled: true,
+                    myLocationEnabled: true,
+                  );
+                } else if (snapshot.hasError == true) {
+                  return SOmethingwentwrong();
+                } else {
+                  return Loadingpage();
+                }
+              }),
           Positioned(
             left: 20,
             top: 30,

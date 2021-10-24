@@ -21,20 +21,6 @@ class _HomepageState extends State<Homepage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    double latitude = 0;
-    double logtitude = 0;
-    /*Future getloc() async {
-      Position data = await Geolocator.getCurrentPosition();
-      print(data.altitude);
-      setState(() {
-        latitude = data.latitude;
-        logtitude = data.longitude;
-        print(latitude);
-      });
-    }
-*/
-    //enablegps();
-    //getloc();
 
     List<String> img = [
       'images/duke390.jpeg',
@@ -47,7 +33,7 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: bgcolor,
       body: Column(
         children: [
-          _appbar(context, latitude, logtitude),
+          _appbar(context),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -109,13 +95,13 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
-Widget _appbar(context, double latitude, double logtitude) {
+Widget _appbar(context) {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   return Container(
     width: double.infinity,
     height: 120,
     decoration: BoxDecoration(
-      color: blue,
+      color: Color.fromRGBO(147, 217, 163, 1),
       boxShadow: [
         BoxShadow(
             blurRadius: 1,
@@ -132,29 +118,17 @@ Widget _appbar(context, double latitude, double logtitude) {
         ),
         Row(
           children: [
-            TextButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.location_on,
-                  color: pink,
-                ),
-                label: Text(
-                  "$latitude,$logtitude",
-                  style: TextStyle(
-                    color: pink,
-                  ),
-                )),
-            Spacer(),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              height: 50,
-              width: 130,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: DecorationImage(
-                    image: AssetImage("icons/plogo.jpeg"), fit: BoxFit.fill),
-              ),
+            SizedBox(
+              width: 30,
             ),
+            Text(
+              "Partsbay",
+              style: GoogleFonts.oxygen(
+                  fontSize: 25,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            Spacer()
           ],
         ),
         Row(
@@ -171,7 +145,7 @@ Widget _appbar(context, double latitude, double logtitude) {
               child: Container(
                 padding: EdgeInsets.all(5),
                 height: 40,
-                width: MediaQuery.of(context).size.width * 0.65,
+                width: MediaQuery.of(context).size.width * 0.75,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
                   border: Border.all(color: Colors.grey.shade200, width: 1),
@@ -192,17 +166,15 @@ Widget _appbar(context, double latitude, double logtitude) {
             IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return CartWhishlistdatafetch(
+                    return Whishlistdatafetch(
                       uid: uid,
-                      collection: 'cart',
-                      index: 0,
                     );
                   }));
                 },
                 icon: Icon(
                   Myicons.heart_empty,
                   size: 20,
-                  color: pink,
+                  color: Colors.black,
                 )),
           ],
         )

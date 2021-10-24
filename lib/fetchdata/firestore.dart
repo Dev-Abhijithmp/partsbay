@@ -8,7 +8,7 @@ import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/inner_screen/loadingpage.dart';
 import 'package:partsbay/inner_screen/somethingwentwrong.dart';
 import 'package:partsbay/inner_screen/viewpage.dart';
-import 'package:partsbay/screens/cart.dart';
+
 import 'package:partsbay/screens/emtycarwhishlistt.dart';
 import 'package:partsbay/screens/menuscreem.dart';
 import 'package:partsbay/screens/whishlist.dart';
@@ -111,16 +111,13 @@ class Profilefetch extends StatelessWidget {
   }
 }
 
-class CartWhishlistdatafetch extends StatelessWidget {
+class Whishlistdatafetch extends StatelessWidget {
   late final String uid;
-  late final String collection;
-  late final int index;
-  CartWhishlistdatafetch(
-      {Key? key,
-      required this.uid,
-      required this.collection,
-      required this.index})
-      : super(key: key);
+
+  Whishlistdatafetch({
+    Key? key,
+    required this.uid,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,15 +134,11 @@ class CartWhishlistdatafetch extends StatelessWidget {
             return Loadingpage();
           } else if (snapshot.hasData) {
             List<DocumentSnapshot> data = snapshot.data!.docs;
-            List<StatefulWidget> whishcartlist = [
-              Cartscreen(),
-              Whishlistpage(data: data)
-            ];
 
             if (data.isNotEmpty == true) {
-              return whishcartlist[index];
+              return Whishlistpage(data: data);
             } else {
-              return Emptycart(title: "Cart");
+              return Emptycart(title: "whishlist");
             }
           } else {
             return Loadingpage();
@@ -181,7 +174,7 @@ Widget cartcount(String id) {
       });
 }
 
-Widget totalcartcount() {
+Widget totalcartamount() {
   return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('user')
@@ -195,14 +188,18 @@ Widget totalcartcount() {
           if (data.isNotEmpty) {
             double total = 0;
             for (var item in data) {
-              total = total + item.get('total');
+              total = total + item.get('count');
             }
-            return checkoutbutton(total);
+            return Text(
+              "${total.round()}",
+              style: GoogleFonts.lato(
+                  fontSize: 20, color: pink, fontWeight: FontWeight.bold),
+            );
           } else {
-            return checkoutbutton(0);
+            return Text("");
           }
         }
 
-        return checkoutbutton(0);
+        return Text("");
       });
 }

@@ -7,8 +7,9 @@ import 'package:partsbay/add_data/add_user.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
 
 Color pink = Color.fromRGBO(242, 50, 134, 1);
-Color blue = Color.fromRGBO(51, 102, 255, 1);
-Color greybackground = Colors.grey.shade200;
+Color blue = Color.fromRGBO(28, 6, 59, 1);
+Color green = Color.fromRGBO(147, 217, 163, 1);
+Color greybackground = Colors.grey.shade300;
 Color white = Colors.white;
 Color bgcolor = Colors.white54;
 AlertDialog alert(BuildContext context) {
@@ -62,16 +63,15 @@ Widget profiletile(String title, String subtitle) {
 Widget checkoutbutton(double total) {
   return InkWell(
     onTap: () {},
-    splashColor: Colors.blue.shade100,
     child: Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Center(
-        child: Text("CHECKOUT(₹$total)", style: TextStyle(color: pink)),
+        child: Text("CHECKOUT(₹$total)", style: TextStyle(color: blue)),
       ),
       width: 200,
       height: 40,
       decoration: BoxDecoration(
-        color: blue,
+        color: green,
         borderRadius: BorderRadius.circular(20),
       ),
     ),
@@ -83,7 +83,7 @@ Widget viewAppbar1(context, String title) {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: blue,
+        color: green,
         boxShadow: [
           BoxShadow(
               blurRadius: 1,
@@ -96,7 +96,7 @@ Widget viewAppbar1(context, String title) {
         child: Text(
           title,
           style: GoogleFonts.lato(
-              fontSize: 30, color: pink, fontWeight: FontWeight.bold),
+              fontSize: 30, color: blue, fontWeight: FontWeight.bold),
         ),
       ));
 }
@@ -111,7 +111,7 @@ Widget singlecartitem(context, String url, String title, double price,
       decoration: BoxDecoration(
           color: white,
           borderRadius: BorderRadius.circular(40),
-          border: Border.all(color: pink)),
+          border: Border.all(color: green)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -134,9 +134,16 @@ Widget singlecartitem(context, String url, String title, double price,
                 children: [
                   Text(title.toUpperCase(),
                       style: GoogleFonts.lato(
-                          fontWeight: FontWeight.bold, fontSize: 15)),
-                  Text(description),
-                  Text("₹" + price.toString()),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: blue)),
+                  Text(
+                    description,
+                    style: GoogleFonts.lato(fontSize: 12, color: blue),
+                  ),
+                  sizedh(5),
+                  Text("₹" + price.toString(),
+                      style: GoogleFonts.lato(fontSize: 15, color: blue)),
                   SizedBox(
                     height: 20,
                   ),
@@ -156,7 +163,7 @@ Widget singlecartitem(context, String url, String title, double price,
                               borderRadius: BorderRadius.circular(10)),
                           child: Icon(
                             Icons.exposure_minus_1_sharp,
-                            color: pink,
+                            color: green,
                           ),
                         ),
                       ),
@@ -190,7 +197,7 @@ Widget singlecartitem(context, String url, String title, double price,
                               borderRadius: BorderRadius.circular(10)),
                           child: Icon(
                             Icons.add,
-                            color: pink,
+                            color: green,
                           ),
                         ),
                       ),
@@ -210,7 +217,7 @@ Widget singlecartitem(context, String url, String title, double price,
                               borderRadius: BorderRadius.circular(10)),
                           child: Icon(
                             Icons.delete,
-                            color: pink,
+                            color: green,
                           ),
                         ),
                       ),
@@ -228,54 +235,42 @@ Widget singlecartitem(context, String url, String title, double price,
 
 Widget singlewhishlistitem(context, String url, String title, double price,
     String description, String id) {
-  return Card(
+  return Container(
+    height: 300,
+    width: MediaQuery.of(context).size.width * 0.49,
     margin: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: green)),
     child: Column(
       children: [
-        Row(
-          children: [
-            Container(
-              width: 120,
-              height: 130,
-              child: Image.network(
-                url,
-                fit: BoxFit.contain,
-              ),
+        Image.network(
+          url,
+          width: 100,
+          height: 130,
+          fit: BoxFit.contain,
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(title),
+        Text(description),
+        Text("₹" + price.toString()),
+        SizedBox(
+          height: 20,
+        ),
+        InkWell(
+          child: Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+                border: Border.all(color: blue),
+                borderRadius: BorderRadius.circular(10)),
+            child: Icon(
+              Icons.delete,
+              color: pink,
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title),
-                Text(description),
-                Text("₹" + price.toString()),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: blue),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Icon(
-                          Icons.delete,
-                          color: pink,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
+          ),
         ),
       ],
     ),
