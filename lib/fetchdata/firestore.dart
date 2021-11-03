@@ -9,14 +9,14 @@ import 'package:partsbay/inner_screen/loadingpage.dart';
 import 'package:partsbay/inner_screen/somethingwentwrong.dart';
 import 'package:partsbay/inner_screen/viewpage.dart';
 
-import 'package:partsbay/screens/emtycarwhishlistt.dart';
+import 'package:partsbay/screens/emtycart.dart';
 import 'package:partsbay/screens/menuscreem.dart';
-import 'package:partsbay/screens/whishlist.dart';
 
 CollectionReference prod = FirebaseFirestore.instance.collection('products');
 CollectionReference usr = FirebaseFirestore.instance.collection('user');
 
 class Catadata extends StatelessWidget {
+  //cls catata is used tofetch category  based data
   final String docdata;
   Catadata({Key? key, required this.docdata}) : super(key: key);
 
@@ -69,7 +69,6 @@ class Searchdata extends StatelessWidget {
             return SOmethingwentwrong();
           }
           print(data.length);
-          print(data[0].get('price').toString());
 
           return Viewpage(
             data: data,
@@ -121,29 +120,58 @@ class Whishlistdatafetch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('user')
-            .doc(uid)
-            .collection('cart')
-            .snapshots(includeMetadataChanges: true),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Container(child: Text("Something went wrong"));
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Loadingpage();
-          } else if (snapshot.hasData) {
-            List<DocumentSnapshot> data = snapshot.data!.docs;
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          viewAppbar1(context, "Whislist"),
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('user')
+                  .doc(uid)
+                  .collection('cart')
+                  .snapshots(includeMetadataChanges: true),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Container(child: Text("Something went wrong"));
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return Loadingpage();
+                } else if (snapshot.hasData) {
+                  List<DocumentSnapshot> data = snapshot.data!.docs;
 
-            if (data.isNotEmpty == true) {
-              return Whishlistpage(data: data);
-            } else {
-              return Emptycart(title: "whishlist");
-            }
-          } else {
-            return Loadingpage();
-          }
-        });
+                  if (data.isNotEmpty == true) {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: 250 * (data.length).toDouble(),
+                      child: GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, index) {
+                          return singlewhishlistitem(
+                              context,
+                              data[index].get('url'),
+                              data[index].get('title'),
+                              data[index].get('price').toDouble(),
+                              data[index].get('description'),
+                              data[index].get('id'));
+                        },
+                        itemCount: data.length,
+                      ),
+                    );
+                  } else {
+                    return Emptycart(title: "whishlist");
+                  }
+                } else {
+                  return Loadingpage();
+                }
+              }),
+        ],
+      ),
+    );
   }
 }
 

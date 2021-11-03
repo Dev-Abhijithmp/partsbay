@@ -12,23 +12,24 @@ class Emptycart extends StatelessWidget {
       statusBarColor: Colors.transparent,
     ));
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: bgcolor,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text(
-                title + ' is empty',
-                style: TextStyle(fontSize: 40),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: bgcolor,
+              ),
+              child: Center(
+                child: Text(
+                  title + ' is empty',
+                  style: TextStyle(fontSize: 40),
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

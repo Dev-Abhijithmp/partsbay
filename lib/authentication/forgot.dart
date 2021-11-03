@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/authentication/authenticate.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 
 class Forgotpass extends StatefulWidget {
   Forgotpass({Key? key}) : super(key: key);
@@ -29,10 +30,7 @@ class _ForgotpassState extends State<Forgotpass> {
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(242, 50, 134, 1),
-                    Color.fromRGBO(28, 6, 59, 1),
-                  ],
+                  colors: [green, blue],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -49,10 +47,7 @@ class _ForgotpassState extends State<Forgotpass> {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(242, 50, 134, 1),
-                      Color.fromRGBO(28, 6, 59, 1),
-                    ],
+                    colors: [green, blue],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -89,7 +84,7 @@ class _ForgotpassState extends State<Forgotpass> {
                               filled: true,
                               prefixIcon: Icon(
                                 Icons.email,
-                                color: Color.fromRGBO(242, 50, 134, 1),
+                                color: green,
                               ),
                               border: outbid(),
                               enabledBorder: outbid(),

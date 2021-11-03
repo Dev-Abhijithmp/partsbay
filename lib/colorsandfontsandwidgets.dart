@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/add_data/add_user.dart';
 import 'package:partsbay/fetchdata/firestore.dart';
+import 'package:partsbay/inner_screen/checkoutpage.dart';
 
 Color pink = Color.fromRGBO(242, 50, 134, 1);
-Color blue = Color.fromRGBO(28, 6, 59, 1);
+Color blue = Color.fromRGBO(26, 6, 59, 1);
 Color green = Color.fromRGBO(147, 217, 163, 1);
 Color greybackground = Colors.grey.shade300;
 Color white = Colors.white;
@@ -41,28 +42,35 @@ Widget sizedw(double value) {
 
 Widget profiletile(String title, String subtitle) {
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 5),
-    child: Card(
-      child: ListTile(
-        title: Text(
-          title,
-          style: GoogleFonts.lato(
-              color: blue, fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: GoogleFonts.lato(
-            color: blue,
-          ),
+    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+    decoration: BoxDecoration(
+        border: Border.all(color: green),
+        borderRadius: BorderRadius.circular(25)),
+    width: double.infinity,
+    child: ListTile(
+      title: Text(
+        title,
+        style: GoogleFonts.lato(
+            color: blue, fontWeight: FontWeight.bold, fontSize: 20),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: GoogleFonts.lato(
+          color: blue,
         ),
       ),
     ),
   );
 }
 
-Widget checkoutbutton(double total) {
+Widget checkoutbutton(double total, context) {
   return InkWell(
-    onTap: () {},
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => Checkoutpage()),
+      );
+    },
     child: Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Center(
@@ -106,11 +114,11 @@ Widget singlecartitem(context, String url, String title, double price,
   return SizedBox(
     width: MediaQuery.of(context).size.height * 0.9,
     child: Container(
-      height: 120,
+      height: 150,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: white,
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(30),
           border: Border.all(color: green)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -144,6 +152,9 @@ Widget singlecartitem(context, String url, String title, double price,
                   sizedh(5),
                   Text("₹" + price.toString(),
                       style: GoogleFonts.lato(fontSize: 15, color: blue)),
+                  sizedh(5),
+                  Text(size,
+                      style: GoogleFonts.lato(fontSize: 15, color: blue)),
                   SizedBox(
                     height: 20,
                   ),
@@ -153,7 +164,7 @@ Widget singlecartitem(context, String url, String title, double price,
                       InkWell(
                         onTap: () {
                           subtractcount(FirebaseAuth.instance.currentUser!.uid,
-                              id, price);
+                              id, price, size);
                         },
                         child: Container(
                           width: 28,
@@ -206,8 +217,8 @@ Widget singlecartitem(context, String url, String title, double price,
                       ),
                       InkWell(
                         onTap: () {
-                          removefromcart(
-                              FirebaseAuth.instance.currentUser!.uid, id);
+                          removefromcart(FirebaseAuth.instance.currentUser!.uid,
+                              id + size);
                         },
                         child: Container(
                           width: 30,
@@ -236,41 +247,62 @@ Widget singlecartitem(context, String url, String title, double price,
 Widget singlewhishlistitem(context, String url, String title, double price,
     String description, String id) {
   return Container(
-    height: 300,
-    width: MediaQuery.of(context).size.width * 0.49,
-    margin: EdgeInsets.all(10),
+    height: 450,
+    width: 120,
+    margin: EdgeInsets.all(5),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: green)),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
           url,
           width: 100,
-          height: 130,
+          height: 100,
           fit: BoxFit.contain,
         ),
         SizedBox(
-          width: 10,
+          height: 10,
         ),
         Text(title),
         Text(description),
         Text("₹" + price.toString()),
         SizedBox(
-          height: 20,
+          height: 10,
         ),
-        InkWell(
-          child: Container(
-            width: 30,
-            height: 30,
-            decoration: BoxDecoration(
-                border: Border.all(color: blue),
-                borderRadius: BorderRadius.circular(10)),
-            child: Icon(
-              Icons.delete,
-              color: pink,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              child: Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                    border: Border.all(color: blue),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Icon(
+                  Icons.delete,
+                  color: green,
+                ),
+              ),
             ),
-          ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                  width: 80,
+                  height: 30,
+                  decoration: BoxDecoration(
+                      color: green,
+                      border: Border.all(color: blue),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Center(
+                      child: Text(
+                    "Add to cart",
+                    style: GoogleFonts.lato(color: white),
+                  ))),
+            ),
+          ],
         ),
       ],
     ),

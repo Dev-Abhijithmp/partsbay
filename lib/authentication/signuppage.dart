@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partsbay/authentication/authenticate.dart';
+import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/inner_screen/loadingpage.dart';
 
 class Signuppage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SignuppageState extends State<Signuppage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color.fromRGBO(242, 50, 134, 1),
+                    green,
                     Color.fromRGBO(28, 6, 59, 1),
                   ],
                   begin: Alignment.topCenter,
@@ -52,10 +53,7 @@ class _SignuppageState extends State<Signuppage> {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(242, 50, 134, 1),
-                      Color.fromRGBO(28, 6, 59, 1),
-                    ],
+                    colors: [green, blue],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -92,7 +90,7 @@ class _SignuppageState extends State<Signuppage> {
                               filled: true,
                               prefixIcon: Icon(
                                 Icons.email,
-                                color: Color.fromRGBO(242, 50, 134, 1),
+                                color: blue,
                               ),
                               border: outbid(),
                               enabledBorder: outbid(),
@@ -131,7 +129,7 @@ class _SignuppageState extends State<Signuppage> {
                               filled: true,
                               prefixIcon: Icon(
                                 Icons.lock,
-                                color: Color.fromRGBO(42, 26, 172, 1),
+                                color: green,
                               ),
                               border: outbid(),
                               enabledBorder: outbid(),
@@ -172,7 +170,7 @@ class _SignuppageState extends State<Signuppage> {
                               filled: true,
                               prefixIcon: Icon(
                                 Icons.lock,
-                                color: Color.fromRGBO(42, 26, 172, 1),
+                                color: green,
                               ),
                               border: outbid(),
                               enabledBorder: outbid(),

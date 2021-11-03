@@ -14,6 +14,8 @@ class Viewpage extends StatelessWidget {
     print(data.length);
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: double.infinity,
         child: Column(
           children: [
             viewAppbar(context),

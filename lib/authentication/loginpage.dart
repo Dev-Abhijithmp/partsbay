@@ -35,7 +35,7 @@ class _LoginpageState extends State<Loginpage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color.fromRGBO(242, 50, 134, 1),
+                    green,
                     Color.fromRGBO(28, 6, 59, 1),
                   ],
                   begin: Alignment.topCenter,
@@ -54,10 +54,7 @@ class _LoginpageState extends State<Loginpage> {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(242, 50, 134, 1),
-                      Color.fromRGBO(28, 6, 59, 1),
-                    ],
+                    colors: [green, blue],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -94,7 +91,7 @@ class _LoginpageState extends State<Loginpage> {
                               filled: true,
                               prefixIcon: Icon(
                                 Icons.email,
-                                color: Color.fromRGBO(242, 50, 134, 1),
+                                color: blue,
                               ),
                               border: outbid(),
                               enabledBorder: outbid(),
@@ -133,7 +130,7 @@ class _LoginpageState extends State<Loginpage> {
                               filled: true,
                               prefixIcon: Icon(
                                 Icons.lock,
-                                color: Color.fromRGBO(42, 26, 172, 1),
+                                color: green,
                               ),
                               border: outbid(),
                               enabledBorder: outbid(),
@@ -203,9 +200,10 @@ class _LoginpageState extends State<Loginpage> {
               child: Text(
                 "Login",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                  color: blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
               ),
             ),
             Positioned(

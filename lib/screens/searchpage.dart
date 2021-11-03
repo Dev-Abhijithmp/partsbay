@@ -17,6 +17,13 @@ class Searchpage extends StatefulWidget {
 TextEditingController controller = TextEditingController();
 
 class _SearchpageState extends State<Searchpage> {
+  String searchdata = "";
+  void changesearch(String search) {
+    setState(() {
+      searchdata = search;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +34,7 @@ class _SearchpageState extends State<Searchpage> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 115,
-            color: blue,
+            color: green,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -41,19 +48,48 @@ class _SearchpageState extends State<Searchpage> {
                         },
                         icon: Icon(
                           Icons.arrow_back,
-                          color: pink,
+                          color: blue,
                         )),
-                    _searchbar(context),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: 45,
+                      child: TextFormField(
+                        onChanged: (val) {
+                          changesearch(val);
+                        },
+                        enabled: true,
+                        autofocus: true,
+                        cursorHeight: 25,
+                        controller: controller,
+                        decoration: InputDecoration(
+                            focusColor: Colors.grey.shade200,
+                            filled: true,
+                            hintText: "Search spares,helmets,gears here..",
+                            fillColor: Colors.grey.shade200,
+                            suffix: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.close,
+                                  color: blue,
+                                  size: 20,
+                                )),
+                            border: ouit(),
+                            errorBorder: ouit(),
+                            enabledBorder: ouit(),
+                            focusedBorder: ouit(),
+                            disabledBorder: ouit(),
+                            focusedErrorBorder: ouit()),
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Expanded(
-            flex: 2,
             child: StreamBuilder<QuerySnapshot>(
               stream: prod
-                  .where('title', isEqualTo: controller.text)
+                  .where('title', isEqualTo: searchdata)
                   .snapshots(includeMetadataChanges: true),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 print(controller.text);
@@ -70,7 +106,7 @@ class _SearchpageState extends State<Searchpage> {
                         body: Center(
                             child: Text("Not found",
                                 style: GoogleFonts.lato(
-                                    color: pink, fontSize: 20))));
+                                    color: blue, fontSize: 20))));
                   }
                   print(data.length);
                   print(data[0].get('price').toString());
@@ -107,38 +143,6 @@ class _SearchpageState extends State<Searchpage> {
       ),
     );
   }
-}
-
-Widget _searchbar(context) {
-  return Container(
-    width: MediaQuery.of(context).size.width * 0.8,
-    height: 45,
-    child: TextFormField(
-      onChanged: (val) {},
-      enabled: true,
-      autofocus: true,
-      cursorHeight: 25,
-      controller: controller,
-      decoration: InputDecoration(
-          focusColor: Colors.grey.shade200,
-          filled: true,
-          hintText: "Search spares,helmets,gears here..",
-          fillColor: Colors.grey.shade200,
-          suffix: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.close,
-                color: pink,
-                size: 20,
-              )),
-          border: ouit(),
-          errorBorder: ouit(),
-          enabledBorder: ouit(),
-          focusedBorder: ouit(),
-          disabledBorder: ouit(),
-          focusedErrorBorder: ouit()),
-    ),
-  );
 }
 
 OutlineInputBorder ouit() {

@@ -7,6 +7,7 @@ import 'package:partsbay/fetchdata/firestore.dart';
 import 'package:partsbay/myicons_icons.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
 import 'package:partsbay/screens/searchpage.dart';
+import 'package:partsbay/screens/whishlist.dart';
 
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
@@ -166,9 +167,7 @@ Widget _appbar(context) {
             IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Whishlistdatafetch(
-                      uid: uid,
-                    );
+                    return Whishlistpage(uid: uid);
                   }));
                 },
                 icon: Icon(
