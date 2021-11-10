@@ -16,17 +16,15 @@ Future<void> createuserprofile(
   });
 }
 
-Future<void> addtocart(context, String uid, String id, String url, double price,
-    String description, String title, String size) async {
+Future<void> addtocart(context, String uid, String cartid, String url,
+    double price, String description, String title, String size) async {
   DocumentReference documentReference = user.doc(uid);
-  DocumentSnapshot<Map<String, dynamic>>? countdata = await documentReference
-      .collection('cart')
-      .doc((id + size).toString())
-      .get();
+  DocumentSnapshot<Map<String, dynamic>>? countdata =
+      await documentReference.collection('cart').doc(cartid).get();
 
   if (countdata.exists == false) {
-    await documentReference.collection('cart').doc((id + size)).set({
-      'id': id + size,
+    await documentReference.collection('cart').doc(cartid).set({
+      'id': cartid,
       'count': 1,
       'title': title,
       'description': description,
@@ -38,24 +36,24 @@ Future<void> addtocart(context, String uid, String id, String url, double price,
   } else {
     await documentReference
         .collection('cart')
-        .doc((id + size).toString())
+        .doc(cartid)
         .update({'count': (countdata.get('count') + 1)});
     await documentReference
         .collection('cart')
-        .doc((id + size).toString())
+        .doc(cartid)
         .update({'total': ((countdata.get('count') + 1) * price)});
   }
 }
 
-Future<void> addtowhishlist(context, String uid, String id, String url,
+Future<void> addtowhishlist(context, String uid, String whishid, String url,
     double price, String description, String title, String size) async {
   DocumentReference documentReference = user.doc(uid);
   DocumentSnapshot<Map<String, dynamic>>? countdata =
-      await documentReference.collection('whishlist').doc(id + size).get();
+      await documentReference.collection('whishlist').doc(whishid).get();
 
   if (countdata.exists == false) {
-    await documentReference.collection('whishlist').doc(id + size).set({
-      'id': id + size,
+    await documentReference.collection('whishlist').doc(whishid).set({
+      'id': whishid,
       'title': title,
       'description': description,
       'url': url,
@@ -65,26 +63,27 @@ Future<void> addtowhishlist(context, String uid, String id, String url,
   } else {
     await documentReference
         .collection('cart')
-        .doc((id + size))
+        .doc(whishid)
         .update({'count': (countdata.get('count') + 1)});
   }
 }
 
-Future<void> subtractcount(String uid, String id, double price, size) async {
+Future<void> subtractcount(
+    String uid, String cartid, double price, String size) async {
   DocumentReference documentReference = user.doc(uid);
   DocumentSnapshot<Map<String, dynamic>>? countdata =
-      await documentReference.collection('cart').doc((id + size)).get();
+      await documentReference.collection('cart').doc(cartid).get();
   if (countdata['count'] > 1) {
     await documentReference
         .collection('cart')
-        .doc((id + size))
+        .doc(cartid)
         .update({'count': (countdata.get('count') - 1)});
     await documentReference
         .collection('cart')
-        .doc(id)
+        .doc(cartid)
         .update({'total': ((countdata.get('count') - 1) * price)});
   } else {
-    removefromcart(uid, (id + size));
+    removefromcart(uid, cartid);
   }
 }
 
@@ -101,11 +100,12 @@ Future<void> removefromwhishlist(String uid, String id) async {
 //Provider.of<Change>(context).cartcount
 
 Future<void> addorder(String uid) async {
-  DocumentReference documentReference = user.doc(uid);
-  QuerySnapshot<Map<String, dynamic>>? flag =
-      await documentReference.collection('orders').get();
-  if (flag == null) {
+  QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance.collection('orders').get();
+
+  if (querySnapshot.docs.isEmpty == true) {
+    await FirebaseFirestore.instance.collection('orders').doc('1').set({});
   } else {
-    print(flag.docs.toString());
+    await FirebaseFirestore.instance.collection('orders').doc('1').set({});
   }
 }

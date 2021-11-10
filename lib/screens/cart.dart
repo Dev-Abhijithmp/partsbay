@@ -47,33 +47,33 @@ class _CartscreenState extends State<Cartscreen> {
                       if (cartdata.length == 0) {
                         return Emptycart(title: 'cart');
                       } else {
-                        return Stack(
-                          children: [
-                            SizedBox(
-                              height: 230 * (cartdata.length).toDouble(),
-                              width: double.infinity,
-                              child: ListView.builder(
-                                padding: EdgeInsets.symmetric(vertical: 5),
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, index) {
-                                  return singlecartitem(
-                                    context,
-                                    cartdata[index].get('url'),
-                                    cartdata[index].get('title'),
-                                    cartdata[index].get('price').toDouble(),
-                                    cartdata[index].get('description'),
-                                    cartdata[index].get('size'),
-                                    cartdata[index].get('id'),
-                                    cartdata[index].get('count'),
-                                  );
-                                },
-                                itemCount: cartdata.length,
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 230 * (cartdata.length).toDouble(),
+                                width: double.infinity,
+                                child: ListView.builder(
+                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (BuildContext context, index) {
+                                    return singlecartitem(
+                                      context,
+                                      cartdata[index].get('url'),
+                                      cartdata[index].get('title'),
+                                      cartdata[index].get('price').toDouble(),
+                                      cartdata[index].get('description'),
+                                      cartdata[index].get('size'),
+                                      cartdata[index].get('id'),
+                                      cartdata[index].get('count'),
+                                    );
+                                  },
+                                  itemCount: cartdata.length,
+                                ),
                               ),
-                            ),
-                            Positioned(
-                              bottom: 60,
-                              left: MediaQuery.of(context).size.width * 0.25,
-                              child: StreamBuilder<QuerySnapshot>(
+                              StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
                                       .collection('user')
                                       .doc(FirebaseAuth
@@ -93,9 +93,9 @@ class _CartscreenState extends State<Cartscreen> {
                                       return checkoutbutton(total, context);
                                     }
                                     return Container();
-                                  }),
-                            )
-                          ],
+                                  })
+                            ],
+                          ),
                         );
                       }
                     } else {

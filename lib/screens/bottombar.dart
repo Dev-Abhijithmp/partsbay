@@ -6,8 +6,8 @@ import 'package:partsbay/myicons_icons.dart';
 import 'package:partsbay/provider/changeprovider.dart';
 import 'package:partsbay/screens/cart.dart';
 import 'package:partsbay/screens/homepage.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:bottom_animation/bottom_animation.dart';
 
 class Bottompage extends StatefulWidget {
   Bottompage({Key? key}) : super(key: key);
@@ -37,38 +37,55 @@ class _BottompageState extends State<Bottompage> {
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: Scaffold(
-              bottomNavigationBar: CurvedNavigationBar(
+              bottomNavigationBar: BottomAnimation(
+                barHeight: 50,
+                barRadius: 10,
+                itemHoverBorderRadius: 15,
+                itemHoverColorOpacity: 0.7,
+                itemHoverHeight: 35,
+                itemHoverWidth: 130,
                 backgroundColor: bgcolor,
-                color: Color.fromRGBO(147, 217, 163, 1),
-                height: 50,
+                selectedIndex: Provider.of<Change>(context).providerindex,
+                itemHoverColor: green,
+                deActiveIconColor: Colors.transparent,
+                activeIconColor: green,
                 items: [
-                  Icon(
-                    Icons.home,
-                    color: Colors.black,
+                  BottomNavItem(
+                    title: "home",
+                    widget: Icon(
+                      Icons.home,
+                      color: Colors.black,
+                    ),
                   ),
-                  Stack(
-                    alignment: AlignmentDirectional.topEnd,
-                    fit: StackFit.loose,
-                    clipBehavior: Clip.antiAlias,
-                    children: [
-                      Icon(
-                        Icons.shopping_cart,
-                        color: Colors.black,
-                      ),
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: totalcartamount(),
-                      ),
-                    ],
+                  BottomNavItem(
+                    title: "cart",
+                    widget: Stack(
+                      alignment: AlignmentDirectional.topEnd,
+                      fit: StackFit.loose,
+                      clipBehavior: Clip.antiAlias,
+                      children: [
+                        Icon(
+                          Icons.shopping_cart,
+                          color: Colors.black,
+                        ),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: totalcartamount(),
+                        ),
+                      ],
+                    ),
                   ),
-                  Icon(
-                    Myicons.user_male,
-                    size: 20,
-                    color: Colors.black,
+                  BottomNavItem(
+                    title: "profile",
+                    widget: Icon(
+                      Myicons.user_male,
+                      size: 20,
+                      color: Colors.black,
+                    ),
                   ),
                 ],
-                onTap: (index) {
+                onItemSelect: (index) {
                   Provider.of<Change>(context, listen: false)
                       .changeindex(index);
                 },

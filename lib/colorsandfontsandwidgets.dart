@@ -9,7 +9,7 @@ import 'package:partsbay/inner_screen/checkoutpage.dart';
 
 Color pink = Color.fromRGBO(242, 50, 134, 1);
 Color blue = Color.fromRGBO(26, 6, 59, 1);
-Color green = Color.fromRGBO(147, 217, 163, 1);
+Color green = Color.fromRGBO(0, 180, 216, 1);
 Color greybackground = Colors.grey.shade300;
 Color white = Colors.white;
 Color bgcolor = Colors.white54;
@@ -110,7 +110,7 @@ Widget viewAppbar1(context, String title) {
 }
 
 Widget singlecartitem(context, String url, String title, double price,
-    String description, String size, String id, int count) {
+    String description, String size, String cartid, int count) {
   return SizedBox(
     width: MediaQuery.of(context).size.height * 0.9,
     child: Container(
@@ -164,7 +164,7 @@ Widget singlecartitem(context, String url, String title, double price,
                       InkWell(
                         onTap: () {
                           subtractcount(FirebaseAuth.instance.currentUser!.uid,
-                              id, price, size);
+                              cartid, price, size);
                         },
                         child: Container(
                           width: 28,
@@ -184,7 +184,7 @@ Widget singlecartitem(context, String url, String title, double price,
                       Container(
                           width: 28,
                           height: 28,
-                          child: Center(child: cartcount(id))),
+                          child: Center(child: cartcount(cartid))),
                       SizedBox(
                         width: 15,
                       ),
@@ -193,7 +193,7 @@ Widget singlecartitem(context, String url, String title, double price,
                           addtocart(
                               context,
                               FirebaseAuth.instance.currentUser!.uid,
-                              id,
+                              cartid,
                               url,
                               price,
                               description,
@@ -217,8 +217,8 @@ Widget singlecartitem(context, String url, String title, double price,
                       ),
                       InkWell(
                         onTap: () {
-                          removefromcart(FirebaseAuth.instance.currentUser!.uid,
-                              id + size);
+                          removefromcart(
+                              FirebaseAuth.instance.currentUser!.uid, cartid);
                         },
                         child: Container(
                           width: 30,

@@ -102,7 +102,7 @@ Widget _appbar(context) {
     width: double.infinity,
     height: 120,
     decoration: BoxDecoration(
-      color: Color.fromRGBO(147, 217, 163, 1),
+      color: green,
       boxShadow: [
         BoxShadow(
             blurRadius: 1,
@@ -150,7 +150,7 @@ Widget _appbar(context) {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
                   border: Border.all(color: Colors.grey.shade200, width: 1),
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(17),
                 ),
                 child: Row(
                   children: [
@@ -245,24 +245,26 @@ Widget _categories(context) {
                 );
               }));
             },
-            child: SizedBox(
+            child: Container(
               width: 110,
               height: 150,
-              child: Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 70,
-                      child: Image.network(
-                          "https://5.imimg.com/data5/TR/XS/MY-3513908/htb1zf4egfxxxxxxxpxxq6xxfxxxq-1000x1000.jpg"),
-                    ),
-                    Text(
-                      "Jackets",
-                      style: GoogleFonts.lato(color: blue, fontSize: 20),
-                    )
-                  ],
-                ),
+              margin: EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: green)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 70,
+                    child: Image.network(
+                        "https://5.imimg.com/data5/TR/XS/MY-3513908/htb1zf4egfxxxxxxxpxxq6xxfxxxq-1000x1000.jpg"),
+                  ),
+                  Text(
+                    "Jackets",
+                    style: GoogleFonts.lato(color: blue, fontSize: 20),
+                  )
+                ],
               ),
             ),
           ),
@@ -274,26 +276,28 @@ Widget _categories(context) {
                 );
               }));
             },
-            child: SizedBox(
+            child: Container(
               width: 110,
               height: 150,
-              child: Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 70,
-                      child: Image.network(
-                        "https://images.unsplash.com/photo-1603799091901-f0034ac3e7fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-                        fit: BoxFit.fill,
-                      ),
+              margin: EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: green)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 70,
+                    child: Image.network(
+                      "https://images.unsplash.com/photo-1603799091901-f0034ac3e7fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+                      fit: BoxFit.fill,
                     ),
-                    Text(
-                      "Helmets",
-                      style: GoogleFonts.lato(color: blue, fontSize: 20),
-                    )
-                  ],
-                ),
+                  ),
+                  Text(
+                    "Helmets",
+                    style: GoogleFonts.lato(color: blue, fontSize: 20),
+                  )
+                ],
               ),
             ),
           ),
@@ -305,24 +309,26 @@ Widget _categories(context) {
                 );
               }));
             },
-            child: SizedBox(
+            child: Container(
               width: 110,
               height: 150,
-              child: Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 70,
-                      child: Image.network(
-                          "https://images-eu.ssl-images-amazon.com/images/I/51H8sdJdXBL._SX300_SY300_QL70_FMwebp_.jpg"),
-                    ),
-                    Text(
-                      "Gloves",
-                      style: GoogleFonts.lato(color: blue, fontSize: 20),
-                    )
-                  ],
-                ),
+              margin: EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: green)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 70,
+                    child: Image.network(
+                        "https://images-eu.ssl-images-amazon.com/images/I/51H8sdJdXBL._SX300_SY300_QL70_FMwebp_.jpg"),
+                  ),
+                  Text(
+                    "Gloves",
+                    style: GoogleFonts.lato(color: blue, fontSize: 20),
+                  )
+                ],
               ),
             ),
           ),
@@ -334,24 +340,26 @@ Widget _categories(context) {
                 );
               }));
             },
-            child: SizedBox(
+            child: Container(
               width: 110,
               height: 150,
-              child: Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 70,
-                      child: Image.network(
-                          "https://m.media-amazon.com/images/I/812HUl6A1YL._SL1500_.jpg"),
-                    ),
-                    Text(
-                      "Boots",
-                      style: GoogleFonts.lato(color: blue, fontSize: 20),
-                    )
-                  ],
-                ),
+              margin: EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: green)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 70,
+                    child: Image.network(
+                        "https://m.media-amazon.com/images/I/812HUl6A1YL._SL1500_.jpg"),
+                  ),
+                  Text(
+                    "Boots",
+                    style: GoogleFonts.lato(color: blue, fontSize: 20),
+                  )
+                ],
               ),
             ),
           ),

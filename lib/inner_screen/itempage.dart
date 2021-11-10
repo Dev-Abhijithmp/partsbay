@@ -87,7 +87,7 @@ class _ItempageState extends State<Itempage> {
                   addtocart(
                       context,
                       uid,
-                      id,
+                      (id + sizes[sizeindex]),
                       links[0],
                       data.get('price').toDouble(),
                       data.get('description'),
