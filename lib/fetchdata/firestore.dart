@@ -10,7 +10,7 @@ import 'package:partsbay/inner_screen/somethingwentwrong.dart';
 import 'package:partsbay/inner_screen/viewpage.dart';
 
 import 'package:partsbay/screens/emtycart.dart';
-import 'package:partsbay/screens/menuscreem.dart';
+import 'package:partsbay/screens/menuscreen.dart';
 
 CollectionReference prod = FirebaseFirestore.instance.collection('products');
 CollectionReference usr = FirebaseFirestore.instance.collection('user');
@@ -202,7 +202,7 @@ Widget cartcount(String id) {
       });
 }
 
-Widget totalcartamount() {
+Widget totalcartcount() {
   return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('user')
@@ -221,7 +221,7 @@ Widget totalcartamount() {
             return Text(
               "${total.round()}",
               style: GoogleFonts.lato(
-                  fontSize: 20, color: pink, fontWeight: FontWeight.bold),
+                  fontSize: 17, color: pink, fontWeight: FontWeight.bold),
             );
           } else {
             return Text("");
@@ -230,4 +230,14 @@ Widget totalcartamount() {
 
         return Text("");
       });
+}
+
+void addnametodatabase(String uid, String name) async {
+  try {
+    await FirebaseFirestore.instance.collection('user').doc(uid).update({
+      'name': name,
+    });
+  } on FirebaseException catch (e) {
+    print(e.toString());
+  }
 }

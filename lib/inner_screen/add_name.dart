@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
+import 'package:partsbay/fetchdata/firestore.dart';
 
 class Addname extends StatelessWidget {
-  const Addname({Key? key}) : super(key: key);
+  Addname({Key? key}) : super(key: key);
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class Addname extends StatelessWidget {
               width: double.infinity,
               margin: EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
+                controller: controller,
                 decoration: InputDecoration(
                   focusedBorder: outbid1(),
                   fillColor: Colors.white,
@@ -49,7 +53,11 @@ class Addname extends StatelessWidget {
               height: 15,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                addnametodatabase(
+                    FirebaseAuth.instance.currentUser!.uid, controller.text);
+                Navigator.pop(context);
+              },
               child: Container(
                 height: 40,
                 width: 150,

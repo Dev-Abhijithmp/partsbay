@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:partsbay/add_data/add_user.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
+//change sign is a stream for knowing if the user is signed in or not
 Stream<User?> changesign = auth.authStateChanges();
 
 void signinemail(String email, String password) async {
@@ -15,11 +16,13 @@ void signinemail(String email, String password) async {
   }
 }
 
+//function for logout
 void signout() async {
   auth.signOut();
   print("Signed out");
 }
 
+//to register a new user
 void register(String email, String password) async {
   try {
     UserCredential userCredential = await auth.createUserWithEmailAndPassword(
@@ -31,10 +34,21 @@ void register(String email, String password) async {
   }
 }
 
+//resetting password
 void sendpassreset(String email) async {
   try {
     await auth.sendPasswordResetEmail(email: email);
   } on FirebaseApp catch (e) {
+    print(e.toString());
+  }
+}
+
+//tochange password
+void changepass(String email, String oldpass, String newpass) async {
+  try {
+    await auth.signInWithEmailAndPassword(email: email, password: oldpass);
+    await auth.currentUser!.updatePassword(newpass);
+  } on FirebaseException catch (e) {
     print(e.toString());
   }
 }

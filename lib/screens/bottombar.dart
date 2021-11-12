@@ -43,7 +43,7 @@ class _BottompageState extends State<Bottompage> {
                 itemHoverBorderRadius: 15,
                 itemHoverColorOpacity: 0.7,
                 itemHoverHeight: 35,
-                itemHoverWidth: 130,
+                itemHoverWidth: 125,
                 backgroundColor: bgcolor,
                 selectedIndex: Provider.of<Change>(context).providerindex,
                 itemHoverColor: green,
@@ -60,7 +60,7 @@ class _BottompageState extends State<Bottompage> {
                   BottomNavItem(
                     title: "cart",
                     widget: Stack(
-                      alignment: AlignmentDirectional.topEnd,
+                      alignment: AlignmentDirectional.topStart,
                       fit: StackFit.loose,
                       clipBehavior: Clip.antiAlias,
                       children: [
@@ -69,9 +69,9 @@ class _BottompageState extends State<Bottompage> {
                           color: Colors.black,
                         ),
                         Positioned(
-                          right: 0,
-                          top: 0,
-                          child: totalcartamount(),
+                          right: -1.3,
+                          top: -5,
+                          child: totalcartcount(),
                         ),
                       ],
                     ),
