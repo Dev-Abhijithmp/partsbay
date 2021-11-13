@@ -6,13 +6,14 @@ FirebaseAuth auth = FirebaseAuth.instance;
 //change sign is a stream for knowing if the user is signed in or not
 Stream<User?> changesign = auth.authStateChanges();
 
-void signinemail(String email, String password) async {
+Future<Map<String, String>> signinemail(String email, String password) async {
   try {
-    UserCredential userCredential =
-        await auth.signInWithEmailAndPassword(email: email, password: password);
-    print(userCredential.toString());
-  } on FirebaseException catch (e) {
+    await auth.signInWithEmailAndPassword(email: email, password: password);
+    return {"status": "success"};
+  } on FirebaseAuthException catch (e) {
     print(e.toString());
+
+    return {"status": e.toString()};
   }
 }
 
@@ -23,23 +24,27 @@ void signout() async {
 }
 
 //to register a new user
-void register(String email, String password) async {
+Future<Map<String, String>> register(String email, String password) async {
   try {
     UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    print('worked');
+
     createuserprofile(userCredential.user!.uid, email);
-  } on FirebaseException catch (e) {
+    return {"status": "success"};
+  } on FirebaseAuthException catch (e) {
     print(e.toString());
+    return {"status": e.toString()};
   }
 }
 
 //resetting password
-void sendpassreset(String email) async {
+Future<Map<String, String>> sendpassreset(String email) async {
   try {
     await auth.sendPasswordResetEmail(email: email);
-  } on FirebaseApp catch (e) {
+    return {"status": "success"};
+  } on FirebaseException catch (e) {
     print(e.toString());
+    return {"status": e.toString()};
   }
 }
 

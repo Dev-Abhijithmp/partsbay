@@ -109,8 +109,57 @@ class _ForgotpassState extends State<Forgotpass> {
                         shadowColor: Colors.black,
                         borderRadius: BorderRadius.circular(20),
                         child: InkWell(
-                          onTap: () {
-                            sendpassreset(controllerMail.text);
+                          onTap: () async {
+                            if (controllerMail.text.isEmpty) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text("Please enter your email"),
+                                    actions: [
+                                      ElevatedButton(
+                                        child: Text("OK"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              Map<String, String> flag =
+                                  await sendpassreset(controllerMail.text);
+                              if (flag['status'] != "success") {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return alertDialog(
+                                        "Error", flag['status'], context);
+                                  },
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Success"),
+                                      content: Text(
+                                          "Password reset link has been sent to your email"),
+                                      actions: [
+                                        ElevatedButton(
+                                          child: Text("OK"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(

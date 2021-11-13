@@ -154,9 +154,28 @@ class _LoginpageState extends State<Loginpage> {
                         shadowColor: Colors.black,
                         borderRadius: BorderRadius.circular(20),
                         child: InkWell(
-                          onTap: () {
-                            signinemail(
-                                controllerMail.text, controllerPass.text);
+                          onTap: () async {
+                            if (controllerMail.text.isEmpty ||
+                                controllerPass.text.isEmpty) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return alertDialog("Error",
+                                        "please fill all the fields", context);
+                                  });
+                            } else {
+                              Map<String, String> flag = await signinemail(
+                                  controllerMail.text, controllerPass.text);
+                              // ignore: unrelated_type_equality_checks
+                              if (flag["status"] != "success") {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return alertDialog(
+                                          "Error", flag["status"], context);
+                                    });
+                              }
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(

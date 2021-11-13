@@ -308,3 +308,18 @@ Widget singlewhishlistitem(context, String url, String title, double price,
     ),
   );
 }
+
+AlertDialog alertDialog(String title, String? content, context) {
+  return AlertDialog(
+    title: Text(title),
+    content: Text(content!),
+    actions: [
+      ElevatedButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Text("OK"),
+      )
+    ],
+  );
+}
