@@ -244,8 +244,8 @@ Widget singlecartitem(context, String url, String title, double price,
   );
 }
 
-Widget singlewhishlistitem(context, String url, String title, double price,
-    String description, String id) {
+Widget singlewishlistitem(context, String url, String title, double price,
+    String description, String whishid) {
   return Container(
     height: 450,
     width: 120,
@@ -275,6 +275,10 @@ Widget singlewhishlistitem(context, String url, String title, double price,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
+              onTap: () {
+                removefromwishlist(
+                    FirebaseAuth.instance.currentUser!.uid, whishid);
+              },
               child: Container(
                 width: 30,
                 height: 30,

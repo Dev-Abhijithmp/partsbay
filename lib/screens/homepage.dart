@@ -167,7 +167,7 @@ Widget _appbar(context) {
             IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Whishlistpage(uid: uid);
+                    return Wishlistpage(uid: uid);
                   }));
                 },
                 icon: Icon(

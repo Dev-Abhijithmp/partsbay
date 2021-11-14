@@ -45,14 +45,14 @@ Future<void> addtocart(context, String uid, String cartid, String url,
   }
 }
 
-Future<void> addtowhishlist(context, String uid, String whishid, String url,
+Future<void> addtowishlist(context, String uid, String whishid, String url,
     double price, String description, String title, String size) async {
   DocumentReference documentReference = user.doc(uid);
   DocumentSnapshot<Map<String, dynamic>>? countdata =
-      await documentReference.collection('whishlist').doc(whishid).get();
+      await documentReference.collection('wishlist').doc(whishid).get();
 
   if (countdata.exists == false) {
-    await documentReference.collection('whishlist').doc(whishid).set({
+    await documentReference.collection('wishlist').doc(whishid).set({
       'id': whishid,
       'title': title,
       'description': description,
@@ -92,9 +92,9 @@ Future<void> removefromcart(String uid, String id) async {
   await documentReference.collection('cart').doc(id).delete();
 }
 
-Future<void> removefromwhishlist(String uid, String id) async {
+Future<void> removefromwishlist(String uid, String whishid) async {
   DocumentReference documentReference = user.doc(uid);
-  documentReference.collection('whishlist').doc(id).delete();
+  documentReference.collection('wishlist').doc(whishid).delete();
 }
 
 //Provider.of<Change>(context).cartcount

@@ -5,16 +5,16 @@ import 'package:partsbay/inner_screen/loadingpage.dart';
 
 import 'emtycart.dart';
 
-class Whishlistpage extends StatefulWidget {
+class Wishlistpage extends StatefulWidget {
   late final String uid;
-  Whishlistpage({Key? key, required this.uid}) : super(key: key);
+  Wishlistpage({Key? key, required this.uid}) : super(key: key);
 
   @override
-  _WhishlistpageState createState() => _WhishlistpageState(uid: uid);
+  _WishlistpageState createState() => _WishlistpageState(uid: uid);
 }
 
-class _WhishlistpageState extends State<Whishlistpage> {
-  _WhishlistpageState({required this.uid});
+class _WishlistpageState extends State<Wishlistpage> {
+  _WishlistpageState({required this.uid});
   late final String uid;
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _WhishlistpageState extends State<Whishlistpage> {
                 stream: FirebaseFirestore.instance
                     .collection('user')
                     .doc(uid)
-                    .collection('cart')
+                    .collection('wishlist')
                     .snapshots(includeMetadataChanges: true),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -51,7 +51,7 @@ class _WhishlistpageState extends State<Whishlistpage> {
                                   childAspectRatio: 0.8, crossAxisCount: 2),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, index) {
-                            return singlewhishlistitem(
+                            return singlewishlistitem(
                                 context,
                                 data[index].get('url'),
                                 data[index].get('title'),
