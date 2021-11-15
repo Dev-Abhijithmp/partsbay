@@ -6,14 +6,14 @@ FirebaseAuth auth = FirebaseAuth.instance;
 //change sign is a stream for knowing if the user is signed in or not
 Stream<User?> changesign = auth.authStateChanges();
 
-Future<Map<String, String>> signinemail(String email, String password) async {
+Future<Map<String, String?>> signinemail(String email, String password) async {
   try {
     await auth.signInWithEmailAndPassword(email: email, password: password);
     return {"status": "success"};
   } on FirebaseAuthException catch (e) {
     print(e.toString());
 
-    return {"status": e.toString()};
+    return {"status": e.message};
   }
 }
 
@@ -24,7 +24,7 @@ void signout() async {
 }
 
 //to register a new user
-Future<Map<String, String>> register(String email, String password) async {
+Future<Map<String, String?>> register(String email, String password) async {
   try {
     UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
@@ -33,18 +33,18 @@ Future<Map<String, String>> register(String email, String password) async {
     return {"status": "success"};
   } on FirebaseAuthException catch (e) {
     print(e.toString());
-    return {"status": e.toString()};
+    return {"status": e.message};
   }
 }
 
 //resetting password
-Future<Map<String, String>> sendpassreset(String email) async {
+Future<Map<String, String?>> sendpassreset(String email) async {
   try {
     await auth.sendPasswordResetEmail(email: email);
     return {"status": "success"};
   } on FirebaseException catch (e) {
     print(e.toString());
-    return {"status": e.toString()};
+    return {"status": e.message};
   }
 }
 
@@ -54,6 +54,6 @@ void changepass(String email, String oldpass, String newpass) async {
     await auth.signInWithEmailAndPassword(email: email, password: oldpass);
     await auth.currentUser!.updatePassword(newpass);
   } on FirebaseException catch (e) {
-    print(e.toString());
+    print(e.message);
   }
 }

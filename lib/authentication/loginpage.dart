@@ -164,7 +164,7 @@ class _LoginpageState extends State<Loginpage> {
                                         "please fill all the fields", context);
                                   });
                             } else {
-                              Map<String, String> flag = await signinemail(
+                              Map<String, String?> flag = await signinemail(
                                   controllerMail.text, controllerPass.text);
                               // ignore: unrelated_type_equality_checks
                               if (flag["status"] != "success") {

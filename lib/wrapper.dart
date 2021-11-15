@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:partsbay/provider/changeprovider.dart';
-import 'package:partsbay/screens/bottombar.dart';
+import 'package:partsbay/userSwitcher.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatefulWidget {
@@ -15,7 +15,7 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => Change(),
-      child: Bottompage(),
+      child: Userswitcher(),
     );
   }
 }

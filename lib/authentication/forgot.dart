@@ -129,7 +129,7 @@ class _ForgotpassState extends State<Forgotpass> {
                                 },
                               );
                             } else {
-                              Map<String, String> flag =
+                              Map<String, String?> flag =
                                   await sendpassreset(controllerMail.text);
                               if (flag['status'] != "success") {
                                 showDialog(
