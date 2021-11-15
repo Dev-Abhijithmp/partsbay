@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/admin/Viewproducts.dart';
+import 'package:partsbay/admin/addproducts.dart';
+import 'package:partsbay/admin/removeproducts.dart';
+import 'package:partsbay/admin/updateitems.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 
 import '../colorsandfontsandwidgets.dart';
@@ -17,6 +21,21 @@ class _AdminmenuState extends State<Adminmenu> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Admin"),
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              signout();
+            },
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
+            label: Text(
+              "SignOut",
+              style: GoogleFonts.lato(color: white),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -37,7 +56,12 @@ class _AdminmenuState extends State<Adminmenu> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Addproducts()));
+              },
               child: Container(
                 child: Center(
                     child: Text("Add products",
@@ -52,7 +76,12 @@ class _AdminmenuState extends State<Adminmenu> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Removeproducts()));
+              },
               child: Container(
                 child: Center(
                     child: Text("Remove products",
@@ -67,10 +96,35 @@ class _AdminmenuState extends State<Adminmenu> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Updateitems()));
+              },
               child: Container(
                 child: Center(
                     child: Text("Update products",
+                        style: GoogleFonts.lato(fontSize: 20, color: white))),
+                height: 50,
+                width: double.infinity,
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Viewproducts()));
+              },
+              child: Container(
+                child: Center(
+                    child: Text("View products",
                         style: GoogleFonts.lato(fontSize: 20, color: white))),
                 height: 50,
                 width: double.infinity,
@@ -86,23 +140,6 @@ class _AdminmenuState extends State<Adminmenu> {
               child: Container(
                 child: Center(
                     child: Text("Genarate reports",
-                        style: GoogleFonts.lato(fontSize: 20, color: white))),
-                height: 50,
-                width: double.infinity,
-                margin: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                signout();
-              },
-              child: Container(
-                child: Center(
-                    child: Text("Logout ",
                         style: GoogleFonts.lato(fontSize: 20, color: white))),
                 height: 50,
                 width: double.infinity,
