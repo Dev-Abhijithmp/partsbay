@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:partsbay/admin/Vieworders.dart';
 import 'package:partsbay/admin/Viewproducts.dart';
 import 'package:partsbay/admin/addproducts.dart';
 import 'package:partsbay/admin/removeproducts.dart';
@@ -125,6 +126,26 @@ class _AdminmenuState extends State<Adminmenu> {
               child: Container(
                 child: Center(
                     child: Text("View products",
+                        style: GoogleFonts.lato(fontSize: 20, color: white))),
+                height: 50,
+                width: double.infinity,
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Vieworders()));
+              },
+              child: Container(
+                child: Center(
+                    child: Text("View Orders",
                         style: GoogleFonts.lato(fontSize: 20, color: white))),
                 height: 50,
                 width: double.infinity,

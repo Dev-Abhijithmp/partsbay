@@ -12,6 +12,9 @@ class Viewproducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("View products"),
+      ),
       backgroundColor: white,
       body: FutureBuilder<QuerySnapshot>(
         future: FirebaseFirestore.instance.collection('products').get(),
@@ -125,32 +128,12 @@ class Viewproducts extends StatelessWidget {
                               } else if (snapshot1.hasError == true) {
                                 return SOmethingwentwrong();
                               } else {
-                                return CircularProgressIndicator();
+                                return CircularProgressIndicator(
+                                  value: 2,
+                                );
                               }
                             }),
                       )
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      //     children: [
-                      //       Text(
-                      //         productsData[index].get('id').toString(),
-                      //         style: TextStyle(
-                      //           fontSize: 20,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       Text(
-                      //         productsData[index].get('price').toString(),
-                      //         style: TextStyle(
-                      //           fontSize: 20,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ]),
                   ),
                 );
