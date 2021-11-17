@@ -8,7 +8,7 @@ class SOmethingwentwrong extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: blue,
+      backgroundColor: white,
       body: Center(
         child: Expanded(
             child: Text("Something went wrong",

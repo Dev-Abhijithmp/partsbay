@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/inner_screen/changenameaddress.dart';
+import 'package:partsbay/inner_screen/vieworder.dart';
 import 'package:partsbay/myicons_icons.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -159,7 +160,13 @@ class _MenuScreenState extends State<MenuScreen> {
                 : Container(),
             isenabled
                 ? TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  Vieworderuser()));
+                    },
                     icon: Icon(
                       Icons.delivery_dining_outlined,
                       color: green,
