@@ -1,5 +1,6 @@
 // ignore_for_file: implementation_imports
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,12 +64,33 @@ Widget profiletile(String title, String subtitle) {
   );
 }
 
-Widget checkoutbutton(double total, context) {
+Widget checkoutbutton(double total, context, List<DocumentSnapshot> cartdata) {
+  List<String> itemids = [];
+  List<String> sizes = [];
+  List<String> urls = [];
+  List<Map<String, dynamic>> priceandcount = [];
   return InkWell(
     onTap: () {
+      for (var i = 0; i < cartdata.length; i++) {
+        sizes.add(cartdata[i].get('size'));
+        urls.add(cartdata[i].get('url'));
+        itemids.add(cartdata[i].get('id'));
+        priceandcount.add({
+          'price': cartdata[i].get('total'),
+          'count': cartdata[i].get('count'),
+        });
+      }
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => Checkoutpage()),
+        MaterialPageRoute(
+            builder: (BuildContext context) => Checkoutpage(
+                  itemids: itemids,
+                  sizes: sizes,
+                  totalamount: total.toInt(),
+                  uid: FirebaseAuth.instance.currentUser!.uid,
+                  urls: urls,
+                  priceandcount: priceandcount,
+                )),
       );
     },
     child: Container(

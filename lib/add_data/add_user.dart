@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 CollectionReference user = FirebaseFirestore.instance.collection('user');
 
@@ -13,6 +14,8 @@ Future<void> createuserprofile(
     'name': "",
     'email': email,
     'role': "user",
+    'orders': 0,
+    'address': "",
   });
 }
 
@@ -99,13 +102,76 @@ Future<void> removefromwishlist(String uid, String whishid) async {
 
 //Provider.of<Change>(context).cartcount
 
-Future<void> addorder(String uid) async {
-  QuerySnapshot<Map<String, dynamic>> querySnapshot =
-      await FirebaseFirestore.instance.collection('orders').get();
+Future<Map<String, dynamic>> addorder(
+  String uid,
+  List<String> itemids,
+  List<String> urls,
+  List<String> sizes,
+  int totalamount,
+  String mode,
+  List<Map<String, dynamic>> priceandcount,
+) async {
+  DocumentSnapshot<Map<String, dynamic>> userdata =
+      await FirebaseFirestore.instance.collection('user').doc(uid).get();
 
-  if (querySnapshot.docs.isEmpty == true) {
-    await FirebaseFirestore.instance.collection('orders').doc('1').set({});
-  } else {
-    await FirebaseFirestore.instance.collection('orders').doc('1').set({});
+  try {
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(uid)
+        .collection('orders')
+        .doc(uid + (userdata.get('orders') + 1).toString())
+        .set({
+      'itemids': itemids,
+      'urls': urls,
+      'sizes': sizes,
+      'price&count': priceandcount,
+      'totalamount': totalamount,
+      'mode': mode,
+      'date': DateTime.now()
+    });
+    FirebaseFirestore.instance.collection('user').doc(uid).update({
+      'orders': (userdata.get('orders') + 1),
+    });
+    FirebaseFirestore.instance
+        .collection('orders')
+        .doc(uid + (userdata.get('orders') + 1).toString())
+        .set({
+      'itemids': itemids,
+      'urls': urls,
+      'sizes': sizes,
+      'price&count': priceandcount,
+      'totalamount': totalamount,
+      'mod': mode,
+      'date': DateTime.now()
+    });
+    return {'status': 'success'};
+  } on FirebaseException catch (e) {
+    return {'status': e.message};
+  }
+}
+
+Future<Map<String, dynamic>> removeorder(String orderid) async {
+  DocumentSnapshot<Map<String, dynamic>> userdata = await FirebaseFirestore
+      .instance
+      .collection('user')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .get();
+  try {
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('orders')
+        .doc(orderid)
+        .delete();
+    await FirebaseFirestore.instance.collection('orders').doc(orderid).delete();
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      'orders': (userdata.get('orders') + 1),
+    });
+    return {'status': 'success'};
+  } on FirebaseException catch (e) {
+    return {'status': e.message};
   }
 }

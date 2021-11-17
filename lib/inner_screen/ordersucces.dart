@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
 
 class Ordersucces extends StatelessWidget {
-  const Ordersucces({Key? key}) : super(key: key);
+  late final int totalamount;
+  Ordersucces({Key? key, required this.totalamount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class Ordersucces extends StatelessWidget {
             ),
             sizedh(15),
             Text(
-              "₹ 500",
+              "₹" + totalamount.toString(),
               style: GoogleFonts.lato(color: white, fontSize: 40),
             ),
             sizedh(10),

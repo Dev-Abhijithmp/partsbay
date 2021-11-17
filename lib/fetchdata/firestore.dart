@@ -232,12 +232,24 @@ Widget totalcartcount() {
       });
 }
 
-void addnametodatabase(String uid, String name) async {
+Future<Map<String, String?>> addnametodatabase(String uid, String name) async {
   try {
     await FirebaseFirestore.instance.collection('user').doc(uid).update({
       'name': name,
     });
+    return {'status': "success"};
   } on FirebaseException catch (e) {
-    print(e.toString());
+    return {'status': e.message};
+  }
+}
+
+Future<Map<String, String?>> changeaddress(String uid, String address) async {
+  try {
+    await FirebaseFirestore.instance.collection('user').doc(uid).update({
+      'address': address,
+    });
+    return {'status': "success"};
+  } on FirebaseException catch (e) {
+    return {'status': e.message};
   }
 }

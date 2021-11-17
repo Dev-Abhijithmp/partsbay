@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
-import 'package:partsbay/inner_screen/add_name.dart';
+import 'package:partsbay/inner_screen/changenameaddress.dart';
 import 'package:partsbay/myicons_icons.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -50,8 +50,30 @@ class _MenuScreenState extends State<MenuScreen> {
           sizedh(10),
           profiletile("Email", data.get('email')),
           sizedh(10),
-          profiletile(
-              "Address", "Mukkuttathil paramil house valluvally koonammvu po"),
+          profiletile("Phone", "9497947142"),
+          sizedh(10),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            decoration: BoxDecoration(
+                border: Border.all(color: green),
+                borderRadius: BorderRadius.circular(25)),
+            width: double.infinity,
+            child: ListTile(
+              title: Text(
+                "Address",
+                style: GoogleFonts.lato(
+                    color: blue, fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              subtitle: Expanded(
+                child: Text(
+                  data.get('address'),
+                  style: GoogleFonts.lato(
+                    color: blue,
+                  ),
+                ),
+              ),
+            ),
+          ),
           sizedh(30),
           Divider(
             height: 1,
@@ -94,7 +116,9 @@ class _MenuScreenState extends State<MenuScreen> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return Addname();
+                      return Changenameaddress(
+                        title: "Name",
+                      );
                     }));
                   },
                   icon: Icon(
@@ -111,12 +135,19 @@ class _MenuScreenState extends State<MenuScreen> {
               : Container(),
           isenabled
               ? TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return Changenameaddress(
+                        title: "Address",
+                      );
+                    }));
+                  },
                   icon: Icon(
                     Icons.location_on_outlined,
                     color: green,
                   ),
-                  label: Text("Add Address",
+                  label: Text("Change Address",
                       style: GoogleFonts.lato(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,

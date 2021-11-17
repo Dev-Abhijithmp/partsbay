@@ -35,7 +35,6 @@ class _ItempageState extends State<Itempage> {
   @override
   Widget build(BuildContext context) {
     List<dynamic> links = data.get('urls');
-    List<dynamic> sizes = data.get('sizes');
 
     void changesize(int val) {
       setState(() {
@@ -219,11 +218,15 @@ class _ItempageState extends State<Itempage> {
                                               border: Border.all(color: blue)),
                                           child: Center(
                                             child: Text(
-                                                sizes[index].toUpperCase()),
+                                                sizesandcountdata[sizeindex]
+                                                    .get('size')
+                                                    .toUpperCase()),
                                           ),
                                         ));
                                   },
-                                  itemCount: sizes.length,
+                                  itemCount:
+                                      (sizesandcountdata[sizeindex].get('size'))
+                                          .length,
                                 ),
                               ),
                             ),

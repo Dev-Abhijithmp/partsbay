@@ -6,7 +6,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 Future<Map<String, String?>> removeproducts(String productId) async {
   try {
+    await _firestore
+        .collection('products')
+        .doc(productId)
+        .collection('sizes&count')
+        .doc()
+        .delete();
     await _firestore.collection('products').doc(productId).delete();
+
     return {'status': 'success'};
   } on FirebaseException catch (e) {
     return {'status': e.message};

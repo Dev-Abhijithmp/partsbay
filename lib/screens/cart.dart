@@ -20,6 +20,12 @@ class Cartscreen extends StatefulWidget {
 class _CartscreenState extends State<Cartscreen> {
   @override
   Widget build(BuildContext context) {
+    List<String> urls = [];
+
+    List<String> sizes = [];
+
+    List<String> itemids = [];
+    List<Map<String, dynamic>> priceandcount = [];
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
@@ -37,7 +43,7 @@ class _CartscreenState extends State<Cartscreen> {
                       .collection('user')
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .collection('cart')
-                      .snapshots(includeMetadataChanges: true),
+                      .snapshots(includeMetadataChanges: false),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError == true) {
                       return SOmethingwentwrong();
@@ -90,7 +96,9 @@ class _CartscreenState extends State<Cartscreen> {
                                       for (var item in totaldata) {
                                         total = total + item.get('total');
                                       }
-                                      return checkoutbutton(total, context);
+
+                                      return checkoutbutton(
+                                          total, context, cartdata);
                                     }
                                     return Container();
                                   })
