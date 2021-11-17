@@ -20,12 +20,6 @@ class Cartscreen extends StatefulWidget {
 class _CartscreenState extends State<Cartscreen> {
   @override
   Widget build(BuildContext context) {
-    List<String> urls = [];
-
-    List<String> sizes = [];
-
-    List<String> itemids = [];
-    List<Map<String, dynamic>> priceandcount = [];
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
