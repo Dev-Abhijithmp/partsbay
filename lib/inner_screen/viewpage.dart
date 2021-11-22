@@ -33,7 +33,7 @@ class Viewpage extends StatelessWidget {
                       }));
                     },
                     child: singleItem(
-                        data[index].get('urls'),
+                        data[index].get('url'),
                         data[index].get('title'),
                         data[index].get('price').toDouble()),
                   );
@@ -79,6 +79,7 @@ Widget viewAppbar(context) {
 }
 
 Widget singleItem(List<dynamic> url, String title, double price) {
+  print(url[0]);
   return SizedBox(
     height: 300,
     width: 160,
@@ -92,6 +93,7 @@ Widget singleItem(List<dynamic> url, String title, double price) {
             width: 160,
             child: Image.network(
               url[0].toString(),
+              scale: 1,
             ),
           ),
           SizedBox(

@@ -15,6 +15,7 @@ Future<void> createuserprofile(
     'email': email,
     'role': "user",
     'orders': 0,
+    'phone': "",
     'address': "",
   });
 }
@@ -127,6 +128,7 @@ Future<Map<String, dynamic>> addorder(
       'price&count': priceandcount,
       'totalamount': totalamount,
       'mode': mode,
+      'status': 'placed',
       'date': DateTime.now()
     });
     FirebaseFirestore.instance.collection('user').doc(uid).update({
@@ -142,6 +144,7 @@ Future<Map<String, dynamic>> addorder(
       'price&count': priceandcount,
       'totalamount': totalamount,
       'mod': mode,
+      'status': 'placed',
       'date': DateTime.now()
     });
     return {'status': 'success'};

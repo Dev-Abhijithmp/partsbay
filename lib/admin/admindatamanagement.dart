@@ -55,10 +55,10 @@ Future<Map<String, List<String>>> addimagetostorage(
     List<String> url = [];
     for (var i = 0; i < images.length; i++) {
       await FirebaseStorage.instance
-          .ref('productimages/$id' + i.toString() + 'jpeg')
+          .ref('productimages/$id' + i.toString() + '.jpeg')
           .putFile(images[i]);
       String sample = await FirebaseStorage.instance
-          .ref('productimages/$id' + i.toString() + 'jpeg')
+          .ref('productimages/$id' + i.toString() + '.jpeg')
           .getDownloadURL();
       url.add(sample);
     }

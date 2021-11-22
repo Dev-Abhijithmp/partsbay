@@ -189,16 +189,26 @@ Widget singlecartitem(context, String url, String title, double price,
                               cartid, price, size);
                         },
                         child: Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: blue),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Icon(
-                            Icons.exposure_minus_1_sharp,
-                            color: green,
-                          ),
-                        ),
+                            width: 28,
+                            height: 28,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: blue),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 2),
+                                child: Transform.rotate(
+                                  angle: -33,
+                                  child: Text(
+                                    "|",
+                                    style: TextStyle(
+                                        color: green,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                ),
+                              ),
+                            )),
                       ),
                       SizedBox(
                         width: 15,

@@ -253,3 +253,23 @@ Future<Map<String, String?>> changeaddress(String uid, String address) async {
     return {'status': e.message};
   }
 }
+
+Future<Map<String, String?>> changephone(String uid, String phone) async {
+  try {
+    await FirebaseFirestore.instance.collection('user').doc(uid).update({
+      'phone': phone,
+    });
+    return {'status': "success"};
+  } on FirebaseException catch (e) {
+    return {'status': e.message.toString()};
+  }
+}
+
+Future<Map<String, String?>> changepassword(String uid, String password) async {
+  try {
+    await FirebaseAuth.instance.currentUser!.updatePassword(password);
+    return {'status': "success"};
+  } on FirebaseException catch (e) {
+    return {'status': e.message.toString()};
+  }
+}

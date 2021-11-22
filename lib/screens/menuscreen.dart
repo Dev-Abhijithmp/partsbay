@@ -53,9 +53,10 @@ class _MenuScreenState extends State<MenuScreen> {
             sizedh(10),
             profiletile("Email", data.get('email')),
             sizedh(10),
-            profiletile("Phone", "9497947142"),
+            profiletile("Phone", data.get('phone')),
             sizedh(10),
             Container(
+              height: 100,
               margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               decoration: BoxDecoration(
                   border: Border.all(color: green),

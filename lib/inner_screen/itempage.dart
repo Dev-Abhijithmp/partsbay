@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_tv/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/add_data/add_user.dart';
+import 'package:partsbay/admin/inneradminpages/updatedata.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/inner_screen/loadingpage.dart';
 import 'package:partsbay/inner_screen/somethingwentwrong.dart';
@@ -34,7 +35,7 @@ class _ItempageState extends State<Itempage> {
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
-    List<dynamic> links = data.get('urls');
+    List<dynamic> links = data.get('url');
 
     void changesize(int val) {
       setState(() {
@@ -94,9 +95,9 @@ class _ItempageState extends State<Itempage> {
                       width: 40,
                     ),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         if (isSelected == true) {
-                          addtocart(
+                          await addtocart(
                               context,
                               uid,
                               (id + sizesandcountdata[sizeindex].get('size')),
@@ -105,7 +106,7 @@ class _ItempageState extends State<Itempage> {
                               data.get('description'),
                               data.get('title'),
                               sizesandcountdata[sizeindex].get('size'));
-                          Navigator.pop(context);
+                          showdialogue(context, 'success', "Added to cart");
                         } else {
                           showDialog(
                               context: context,

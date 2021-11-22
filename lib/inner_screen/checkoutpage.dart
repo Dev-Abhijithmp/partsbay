@@ -150,7 +150,14 @@ class Checkoutpage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext context) => Payment()));
+                                builder: (BuildContext context) => Payment(
+                                      uid: uid,
+                                      urls: urls,
+                                      totalamount: totalamount,
+                                      itemids: itemids,
+                                      sizes: sizes,
+                                      priceandcount: priceandcount,
+                                    )));
                       }
                     },
                     child: Container(
