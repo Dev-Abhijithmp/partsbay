@@ -57,7 +57,7 @@ class Vieworderuser extends StatelessWidget {
 
 Widget singleorderitem(DocumentSnapshot _data, int _index2, context) {
   return Container(
-    height: 380,
+    height: 300,
     width: double.infinity,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
@@ -71,14 +71,17 @@ Widget singleorderitem(DocumentSnapshot _data, int _index2, context) {
           width: 100,
           child: Image.network(_data['urls'][0].toString()),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [Text('order id'), Text("-"), Text(_data.id)],
-        ),
+        Text('order id' + " -  $_data.id"),
+        Text(""),
         _data.get('status') != 'delivered'
             ? InkWell(
                 onTap: () async {
-                  Map<String, dynamic> _flag = await removeorder(_data.id);
+                  Map<String, dynamic> _flag = await removeorder(
+                      _data.id,
+                      _data.get('mainids'),
+                      _data.get('sizes'),
+                      _data.get('itemids'),
+                      _data.get('price&count'));
                   if (_flag['status'] == 'success') {
                     showDialog(
                         context: context,
@@ -93,7 +96,21 @@ Widget singleorderitem(DocumentSnapshot _data, int _index2, context) {
                                     child: Text("ok"))
                               ],
                             ));
-                  } else {}
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('Error'),
+                              content: Text(_flag['status']),
+                              actions: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("ok"))
+                              ],
+                            ));
+                  }
                 },
                 child: Container(
                   height: 30,

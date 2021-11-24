@@ -69,12 +69,14 @@ Widget checkoutbutton(double total, context, List<DocumentSnapshot> cartdata) {
   List<String> sizes = [];
   List<String> urls = [];
   List<Map<String, dynamic>> priceandcount = [];
+  List<String> mainid = [];
   return InkWell(
     onTap: () {
       for (var i = 0; i < cartdata.length; i++) {
         sizes.add(cartdata[i].get('size'));
         urls.add(cartdata[i].get('url'));
         itemids.add(cartdata[i].get('id'));
+        mainid.add(cartdata[i].get('mainid'));
         priceandcount.add({
           'price': cartdata[i].get('total'),
           'count': cartdata[i].get('count'),
@@ -90,6 +92,7 @@ Widget checkoutbutton(double total, context, List<DocumentSnapshot> cartdata) {
                   uid: FirebaseAuth.instance.currentUser!.uid,
                   urls: urls,
                   priceandcount: priceandcount,
+                  mainids: mainid,
                 )),
       );
     },
@@ -132,7 +135,7 @@ Widget viewAppbar1(context, String title) {
 }
 
 Widget singlecartitem(context, String url, String title, double price,
-    String description, String size, String cartid, int count) {
+    String description, String size, String cartid, int count, String mainid) {
   return SizedBox(
     width: MediaQuery.of(context).size.height * 0.9,
     child: Container(
@@ -230,7 +233,8 @@ Widget singlecartitem(context, String url, String title, double price,
                               price,
                               description,
                               title,
-                              size);
+                              size,
+                              mainid);
                         },
                         child: Container(
                           width: 28,
@@ -277,7 +281,7 @@ Widget singlecartitem(context, String url, String title, double price,
 }
 
 Widget singlewishlistitem(context, String url, String title, double price,
-    String description, String whishid) {
+    String description, String whishid, String mainid) {
   return Container(
     height: 450,
     width: 120,

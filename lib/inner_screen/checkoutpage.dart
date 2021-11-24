@@ -19,6 +19,7 @@ class Checkoutpage extends StatelessWidget {
 
   late final List<String> itemids;
   late final List<Map<String, dynamic>> priceandcount;
+  late final List<String> mainids;
 
   Checkoutpage({
     Key? key,
@@ -28,6 +29,7 @@ class Checkoutpage extends StatelessWidget {
     required this.urls,
     required this.uid,
     required this.priceandcount,
+    required this.mainids,
   }) : super(key: key);
 
   @override
@@ -67,8 +69,15 @@ class Checkoutpage extends StatelessWidget {
                                   ],
                                 ));
                       } else {
-                        Map<String, dynamic> flag = await addorder(uid, itemids,
-                            urls, sizes, totalamount, "cod", priceandcount);
+                        Map<String, dynamic> flag = await addorder(
+                            uid,
+                            itemids,
+                            urls,
+                            sizes,
+                            totalamount,
+                            mainids,
+                            "cod",
+                            priceandcount);
 
                         if (flag['status'] == 'success') {
                           for (var item in itemids) {
@@ -157,6 +166,7 @@ class Checkoutpage extends StatelessWidget {
                                       itemids: itemids,
                                       sizes: sizes,
                                       priceandcount: priceandcount,
+                                      mainids: mainids,
                                     )));
                       }
                     },

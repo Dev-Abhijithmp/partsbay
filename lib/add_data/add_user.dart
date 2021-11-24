@@ -20,14 +20,23 @@ Future<void> createuserprofile(
   });
 }
 
-Future<void> addtocart(context, String uid, String cartid, String url,
-    double price, String description, String title, String size) async {
+Future<void> addtocart(
+    context,
+    String uid,
+    String cartid,
+    String url,
+    double price,
+    String description,
+    String title,
+    String size,
+    String mainid) async {
   DocumentReference documentReference = user.doc(uid);
   DocumentSnapshot<Map<String, dynamic>>? countdata =
       await documentReference.collection('cart').doc(cartid).get();
 
   if (countdata.exists == false) {
     await documentReference.collection('cart').doc(cartid).set({
+      'mainid': mainid,
       'id': cartid,
       'count': 1,
       'title': title,
@@ -49,14 +58,23 @@ Future<void> addtocart(context, String uid, String cartid, String url,
   }
 }
 
-Future<void> addtowishlist(context, String uid, String whishid, String url,
-    double price, String description, String title, String size) async {
+Future<void> addtowishlist(
+    context,
+    String uid,
+    String whishid,
+    String url,
+    double price,
+    String description,
+    String title,
+    String size,
+    String mainid) async {
   DocumentReference documentReference = user.doc(uid);
   DocumentSnapshot<Map<String, dynamic>>? countdata =
       await documentReference.collection('wishlist').doc(whishid).get();
 
   if (countdata.exists == false) {
     await documentReference.collection('wishlist').doc(whishid).set({
+      'mainid': mainid,
       'id': whishid,
       'title': title,
       'description': description,
@@ -109,11 +127,31 @@ Future<Map<String, dynamic>> addorder(
   List<String> urls,
   List<String> sizes,
   int totalamount,
+  List<String> mainids,
   String mode,
   List<Map<String, dynamic>> priceandcount,
 ) async {
   DocumentSnapshot<Map<String, dynamic>> userdata =
       await FirebaseFirestore.instance.collection('user').doc(uid).get();
+  for (var i = 0; i < itemids.length; i++) {
+    DocumentSnapshot<Map<String, dynamic>> temp = await FirebaseFirestore
+        .instance
+        .collection('products')
+        .doc(mainids[i])
+        .collection('sizes&count')
+        .doc(sizes[i])
+        .get();
+
+    await FirebaseFirestore.instance
+        .collection('products')
+        .doc(mainids[i])
+        .collection('sizes&count')
+        .doc(sizes[i])
+        .update({
+      'size': sizes[i],
+      'sizecount': (temp.get('sizecount') - priceandcount[i]['count']),
+    });
+  }
 
   try {
     FirebaseFirestore.instance
@@ -153,7 +191,13 @@ Future<Map<String, dynamic>> addorder(
   }
 }
 
-Future<Map<String, dynamic>> removeorder(String orderid) async {
+Future<Map<String, dynamic>> removeorder(
+  String orderid,
+  List<String> mainids,
+  List<String> sizes,
+  List<String> itemids,
+  List<Map<String, dynamic>> priceandcount,
+) async {
   DocumentSnapshot<Map<String, dynamic>> userdata = await FirebaseFirestore
       .instance
       .collection('user')
@@ -173,6 +217,25 @@ Future<Map<String, dynamic>> removeorder(String orderid) async {
         .update({
       'orders': (userdata.get('orders') + 1),
     });
+    for (var i = 0; i < itemids.length; i++) {
+      DocumentSnapshot<Map<String, dynamic>> temp = await FirebaseFirestore
+          .instance
+          .collection('products')
+          .doc(mainids[i])
+          .collection('sizes&count')
+          .doc(sizes[i])
+          .get();
+
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(mainids[i])
+          .collection('sizes&count')
+          .doc(sizes[i])
+          .update({
+        'size': sizes[i],
+        'sizecount': (temp.get('sizecount') + priceandcount[i]['count']),
+      });
+    }
     return {'status': 'success'};
   } on FirebaseException catch (e) {
     return {'status': e.message};

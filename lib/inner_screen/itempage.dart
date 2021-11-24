@@ -105,7 +105,8 @@ class _ItempageState extends State<Itempage> {
                               data.get('price').toDouble(),
                               data.get('description'),
                               data.get('title'),
-                              sizesandcountdata[sizeindex].get('size'));
+                              sizesandcountdata[sizeindex].get('size'),
+                              id);
                           showdialogue(context, 'success', "Added to cart");
                         } else {
                           showDialog(
@@ -173,6 +174,16 @@ class _ItempageState extends State<Itempage> {
                                   color: blue),
                             ),
                             SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              data.get('bike'),
+                              style: GoogleFonts.lato(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: blue),
+                            ),
+                            SizedBox(
                               height: 5,
                             ),
                             Text(
@@ -225,9 +236,7 @@ class _ItempageState extends State<Itempage> {
                                           ),
                                         ));
                                   },
-                                  itemCount:
-                                      (sizesandcountdata[sizeindex].get('size'))
-                                          .length,
+                                  itemCount: (sizesandcountdata.length),
                                 ),
                               ),
                             ),
@@ -318,7 +327,8 @@ class _ItempageState extends State<Itempage> {
                                 data.get('price').toDouble(),
                                 data.get('description'),
                                 data.get('title'),
-                                sizesandcountdata[sizeindex].get('size'));
+                                sizesandcountdata[sizeindex].get('size'),
+                                id);
                           },
                         ),
                       ),

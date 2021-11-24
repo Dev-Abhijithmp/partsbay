@@ -152,12 +152,14 @@ class Whishlistdatafetch extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, index) {
                           return singlewishlistitem(
-                              context,
-                              data[index].get('url'),
-                              data[index].get('title'),
-                              data[index].get('price').toDouble(),
-                              data[index].get('description'),
-                              data[index].get('id'));
+                            context,
+                            data[index].get('url'),
+                            data[index].get('title'),
+                            data[index].get('price').toDouble(),
+                            data[index].get('description'),
+                            data[index].get('id'),
+                            data[index].get('mainid'),
+                          );
                         },
                         itemCount: data.length,
                       ),

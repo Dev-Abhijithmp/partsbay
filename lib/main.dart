@@ -39,7 +39,6 @@ class _AppState extends State<App> {
           if (snapshot.hasError) {
             return SOmethingwentwrong();
           }
-
           // Once complete, show your application
           if (snapshot.connectionState == ConnectionState.done) {
             return Signinout();

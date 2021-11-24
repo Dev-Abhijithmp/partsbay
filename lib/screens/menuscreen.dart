@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/authentication/authenticate.dart';
 import 'package:partsbay/colorsandfontsandwidgets.dart';
 import 'package:partsbay/inner_screen/changenameaddress.dart';
+import 'package:partsbay/inner_screen/changepassword.dart';
+import 'package:partsbay/inner_screen/changephonenumber.dart';
 import 'package:partsbay/inner_screen/vieworder.dart';
 import 'package:partsbay/myicons_icons.dart';
 
@@ -162,17 +164,16 @@ class _MenuScreenState extends State<MenuScreen> {
             isenabled
                 ? TextButton.icon(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  Vieworderuser()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return Changephone();
+                      }));
                     },
                     icon: Icon(
-                      Icons.delivery_dining_outlined,
+                      Icons.phone,
                       color: green,
                     ),
-                    label: Text("View orders",
+                    label: Text("Change phonenumber",
                         style: GoogleFonts.lato(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -182,7 +183,12 @@ class _MenuScreenState extends State<MenuScreen> {
                 : Container(),
             isenabled
                 ? TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return Changepassword();
+                      }));
+                    },
                     icon: Icon(
                       Icons.lock,
                       color: green,
@@ -196,6 +202,24 @@ class _MenuScreenState extends State<MenuScreen> {
                   )
                 : Container(),
             sizedh(10),
+            TextButton.icon(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Vieworderuser()));
+              },
+              icon: Icon(
+                Icons.delivery_dining_outlined,
+                color: green,
+              ),
+              label: Text("View orders",
+                  style: GoogleFonts.lato(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: blue,
+                  )),
+            ),
             TextButton.icon(
               onPressed: () {
                 signout();

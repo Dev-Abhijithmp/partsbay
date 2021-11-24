@@ -124,7 +124,8 @@ class _SearchpageState extends State<Searchpage> {
                               child: singleItem(
                                   searchList[index].get('url'),
                                   searchList[index].get('title'),
-                                  searchList[index].get('price').toDouble()),
+                                  searchList[index].get('price').toDouble(),
+                                  searchList[index].get('bike')),
                             );
                           },
                           itemCount: searchList.length,

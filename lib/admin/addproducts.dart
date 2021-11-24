@@ -78,7 +78,6 @@ class _AddproductsState extends State<Addproducts> {
                   vendorcontroller.text == "" ||
                   descriptioncontroller.text == "" ||
                   categorydata == null ||
-                  sizecountdata == [] ||
                   _pickedImage == null) {
                 showDialog(
                     context: context,
@@ -266,6 +265,10 @@ class _AddproductsState extends State<Addproducts> {
                             DropdownMenuItem<String>(
                               child: Text("XXXl"),
                               value: "xxxl",
+                            ),
+                            DropdownMenuItem<String>(
+                              child: Text("Fixed size"),
+                              value: "fs",
                             ),
                           ],
                           onChanged: (value) {

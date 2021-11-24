@@ -14,6 +14,7 @@ class Payment extends StatefulWidget {
   late final List<String> sizes;
   late final int totalamount;
   late final List<Map<String, dynamic>> priceandcount;
+  late final List<String> mainids;
   Payment(
       {Key? key,
       required this.uid,
@@ -21,7 +22,8 @@ class Payment extends StatefulWidget {
       required this.priceandcount,
       required this.sizes,
       required this.totalamount,
-      required this.urls})
+      required this.urls,
+      required this.mainids})
       : super(key: key);
 
   @override
@@ -31,7 +33,8 @@ class Payment extends StatefulWidget {
       urls: urls,
       sizes: sizes,
       totalamount: totalamount,
-      priceandcount: priceandcount);
+      priceandcount: priceandcount,
+      mainids: mainids);
 }
 
 String? _month;
@@ -46,13 +49,15 @@ class _PaymentState extends State<Payment> {
   late final List<String> sizes;
   late final int totalamount;
   late final List<Map<String, dynamic>> priceandcount;
+  late final List<String> mainids;
   _PaymentState(
       {required this.uid,
       required this.itemids,
       required this.priceandcount,
       required this.sizes,
       required this.totalamount,
-      required this.urls});
+      required this.urls,
+      required this.mainids});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -229,7 +234,7 @@ class _PaymentState extends State<Payment> {
                     _cvvcontroller.text == "123" &&
                     _cardNumberController.text == "1234567890123456") {
                   Map<String, dynamic> flag = await addorder(uid, itemids, urls,
-                      sizes, totalamount, "prepaid", priceandcount);
+                      sizes, totalamount, mainids, "prepaid", priceandcount);
 
                   if (flag['status'] == 'success') {
                     for (var item in itemids) {

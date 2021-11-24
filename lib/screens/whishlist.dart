@@ -57,7 +57,8 @@ class _WishlistpageState extends State<Wishlistpage> {
                                 data[index].get('title'),
                                 data[index].get('price').toDouble(),
                                 data[index].get('description'),
-                                data[index].get('id'));
+                                data[index].get('id'),
+                                data[index].get('mainid'));
                           },
                           itemCount: data.length,
                         ),

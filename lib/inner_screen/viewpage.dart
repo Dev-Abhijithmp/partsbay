@@ -35,7 +35,8 @@ class Viewpage extends StatelessWidget {
                     child: singleItem(
                         data[index].get('url'),
                         data[index].get('title'),
-                        data[index].get('price').toDouble()),
+                        data[index].get('price').toDouble(),
+                        data[index].get('bike')),
                   );
                 },
                 itemCount: data.length,
@@ -78,7 +79,7 @@ Widget viewAppbar(context) {
   );
 }
 
-Widget singleItem(List<dynamic> url, String title, double price) {
+Widget singleItem(List<dynamic> url, String title, double price, String bike) {
   print(url[0]);
   return SizedBox(
     height: 300,
@@ -102,6 +103,16 @@ Widget singleItem(List<dynamic> url, String title, double price) {
           Text(
             title,
             style: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            bike,
+            style: GoogleFonts.lato(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic),
           ),
           SizedBox(
             height: 5,
