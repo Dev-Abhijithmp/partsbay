@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:partsbay/admin/Vieworders.dart';
 import 'package:partsbay/admin/Viewproducts.dart';
 import 'package:partsbay/admin/addproducts.dart';
+import 'package:partsbay/admin/inneradminpages/addstores.dart';
 import 'package:partsbay/admin/removeproducts.dart';
 import 'package:partsbay/admin/updateitems.dart';
 import 'package:partsbay/authentication/authenticate.dart';
@@ -146,6 +147,41 @@ class _AdminmenuState extends State<Adminmenu> {
               child: Container(
                 child: Center(
                     child: Text("View Orders",
+                        style: GoogleFonts.lato(fontSize: 20, color: white))),
+                height: 50,
+                width: double.infinity,
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Addstores()));
+              },
+              child: Container(
+                child: Center(
+                    child: Text("Add stores",
+                        style: GoogleFonts.lato(fontSize: 20, color: white))),
+                height: 50,
+                width: double.infinity,
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                child: Center(
+                    child: Text("remove stores",
                         style: GoogleFonts.lato(fontSize: 20, color: white))),
                 height: 50,
                 width: double.infinity,

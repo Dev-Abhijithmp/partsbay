@@ -23,7 +23,7 @@ class Viewpage extends StatelessWidget {
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 0.7, crossAxisCount: 2),
+                    childAspectRatio: 0.6, crossAxisCount: 2),
                 itemBuilder: (BuildContext context, index) {
                   return GestureDetector(
                     onTap: () {
