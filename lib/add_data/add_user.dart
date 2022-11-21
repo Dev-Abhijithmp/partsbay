@@ -161,6 +161,7 @@ Future<Map<String, dynamic>> addorder(
         .doc(uid + (userdata.get('orders') + 1).toString())
         .set({
       'itemids': itemids,
+      'uid':uid,
       'urls': urls,
       'sizes': sizes,
       'price&count': priceandcount,
@@ -177,6 +178,7 @@ Future<Map<String, dynamic>> addorder(
         .doc(uid + (userdata.get('orders') + 1).toString())
         .set({
       'itemids': itemids,
+      'uid':uid,
       'urls': urls,
       'sizes': sizes,
       'price&count': priceandcount,

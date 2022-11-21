@@ -71,7 +71,7 @@ Widget singleorderitem(DocumentSnapshot _data, int _index2, context) {
           width: 100,
           child: Image.network(_data['urls'][0].toString()),
         ),
-        Text('order id' + " -  $_data.id"),
+        Text('order id -' + _data['uid'].toString()),
         Text(""),
         _data.get('status') != 'delivered'
             ? InkWell(
