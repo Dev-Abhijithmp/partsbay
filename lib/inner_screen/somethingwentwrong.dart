@@ -10,9 +10,8 @@ class SOmethingwentwrong extends StatelessWidget {
     return Scaffold(
       backgroundColor: white,
       body: Center(
-        child: Expanded(
-            child: Text("Something went wrong",
-                style: GoogleFonts.lato(color: pink, fontSize: 20))),
+        child: Text("Something went wrong",
+            style: GoogleFonts.lato(color: pink, fontSize: 20)),
       ),
     );
   }

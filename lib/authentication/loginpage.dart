@@ -14,15 +14,15 @@ class Loginpage extends StatefulWidget {
   @override
   _LoginpageState createState() => _LoginpageState();
 }
-
+  TextEditingController controllerMail = TextEditingController();
+    TextEditingController controllerPass = TextEditingController();
 class _LoginpageState extends State<Loginpage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light));
-    TextEditingController controllerMail = TextEditingController();
-    TextEditingController controllerPass = TextEditingController();
+  
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

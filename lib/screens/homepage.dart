@@ -61,59 +61,57 @@ class _HomepageState extends State<Homepage> {
       body: Column(
         children: [
           _appbar(context),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  sizedh(10),
-                  Container(
-                    height: 200,
-                    child: Swiper(
-                      fade: 1,
-                      autoplay: true,
-                      itemCount: img.length,
-                      controller: SwiperController(),
-                      pagination: SwiperPagination(
-                        builder: SwiperPagination.dots,
-                        alignment: Alignment.bottomCenter,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          child: Image.asset(
-                            img[index],
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sizedh(10),
+                Container(
+                  height: 200,
+                  child: Swiper(
+                    fade: 1,
+                    autoplay: true,
+                    itemCount: img.length,
+                    controller: SwiperController(),
+                    pagination: SwiperPagination(
+                      builder: SwiperPagination.dots,
+                      alignment: Alignment.bottomCenter,
                     ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: Image.asset(
+                          img[index],
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
                   ),
-                  sizedh(20),
-                  Row(
-                    children: [
-                      sizedw(20),
-                      Text(
-                        "Categories",
-                        style: GoogleFonts.lato(color: blue, fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  sizedh(20),
-                  _categories(context, data),
+                ),
+                sizedh(20),
+                Row(
+                  children: [
+                    sizedw(20),
+                    Text(
+                      "Categories",
+                      style: GoogleFonts.lato(color: blue, fontSize: 20),
+                    ),
+                  ],
+                ),
+                sizedh(20),
+                _categories(context, data),
 
-                  // Row(
-                  //   children: [
-                  //     sizedw(20),
-                  //     Text(
-                  //       "Shop by bikes",
-                  //       style: GoogleFonts.lato(color: blue, fontSize: 20),
-                  //     ),
-                  //   ],
-                  // ),
-                  // _shopbybikes(),
-                  sizedh(60),
-                ],
-              ),
+                // Row(
+                //   children: [
+                //     sizedw(20),
+                //     Text(
+                //       "Shop by bikes",
+                //       style: GoogleFonts.lato(color: blue, fontSize: 20),
+                //     ),
+                //   ],
+                // ),
+                // _shopbybikes(),
+                sizedh(60),
+              ],
             ),
           ),
         ],
@@ -301,162 +299,3 @@ Widget _categories(context, List<Map<String, dynamic>> data) {
     ),
   );
 }
-
-        //   GestureDetector(
-        //     onTap: () {
-        //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //         return Catadata(
-        //           docdata: "jackets",
-        //         );
-        //       }));
-        //     },
-        //     child: Container(
-        //       width: 110,
-        //       height: 150,
-        //       margin: EdgeInsets.all(7),
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(15),
-        //           border: Border.all(color: green)),
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //           Container(
-        //             height: 70,
-        //             child: Image.network(
-        //                 "https://5.imimg.com/data5/TR/XS/MY-3513908/htb1zf4egfxxxxxxxpxxq6xxfxxxq-1000x1000.jpg"),
-        //           ),
-        //           Text(
-        //             "Jackets",
-        //             style: GoogleFonts.lato(color: blue, fontSize: 20),
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        //   GestureDetector(
-        //     onTap: () {
-        //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //         return Catadata(
-        //           docdata: "helmets",
-        //         );
-        //       }));
-        //     },
-        //     child: Container(
-        //       width: 110,
-        //       height: 150,
-        //       margin: EdgeInsets.all(7),
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(15),
-        //           border: Border.all(color: green)),
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //           Container(
-        //             height: 70,
-        //             child: Image.network(
-        //               "https://images.unsplash.com/photo-1603799091901-f0034ac3e7fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-        //               fit: BoxFit.fill,
-        //             ),
-        //           ),
-        //           Text(
-        //             "Helmets",
-        //             style: GoogleFonts.lato(color: blue, fontSize: 20),
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        //   GestureDetector(
-        //     onTap: () {
-        //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //         return Catadata(
-        //           docdata: "gloves",
-        //         );
-        //       }));
-        //     },
-        //     child: Container(
-        //       width: 110,
-        //       height: 150,
-        //       margin: EdgeInsets.all(7),
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(15),
-        //           border: Border.all(color: green)),
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //           Container(
-        //             height: 70,
-        //             child: Image.network(
-        //                 "https://images-eu.ssl-images-amazon.com/images/I/51H8sdJdXBL._SX300_SY300_QL70_FMwebp_.jpg"),
-        //           ),
-        //           Text(
-        //             "Gloves",
-        //             style: GoogleFonts.lato(color: blue, fontSize: 20),
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        //   GestureDetector(
-        //     onTap: () {
-        //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //         return Catadata(
-        //           docdata: "boots",
-        //         );
-        //       }));
-        //     },
-        //     child: Container(
-        //       width: 110,
-        //       height: 150,
-        //       margin: EdgeInsets.all(7),
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(15),
-        //           border: Border.all(color: green)),
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //           Container(
-        //             height: 70,
-        //             child: Image.network(
-        //                 "https://m.media-amazon.com/images/I/812HUl6A1YL._SL1500_.jpg"),
-        //           ),
-        //           Text(
-        //             "Boots",
-        //             style: GoogleFonts.lato(color: blue, fontSize: 20),
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        //   GestureDetector(
-        //     onTap: () {
-        //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //         return Catadata(
-        //           docdata: "parts",
-        //         );
-        //       }));
-        //     },
-        //     child: Container(
-        //       width: 110,
-        //       height: 150,
-        //       margin: EdgeInsets.all(7),
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(15),
-        //           border: Border.all(color: green)),
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //           Container(
-        //             height: 70,
-        //             child: Image.network(
-        //                 "https://i0.wp.com/vfxdownload.com/wp-content/uploads/2019/12/1920x1080.jpg?w=590&ssl=1"),
-        //           ),
-        //           Text(
-        //             "Parts",
-        //             style: GoogleFonts.lato(color: blue, fontSize: 20),
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ],
